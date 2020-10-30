@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <title><%=htmlTemplate.templateTitle%></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /** 清除内外边距 **/
+    body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+    dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+    pre, /* text formatting elements 文本格式元素 */
+    form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+    th, td /* table elements 表格元素 */
+    {
+      margin: 0;
+      padding: 0;
+    }
+
+    /** 设置默认字体 **/
+    body,
+    button, input, select, textarea /* for ie */
+    {
+      font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 100%;
+    }
+
+    address, cite, dfn, em, var {
+      font-style: normal;
+    }
+
+    /* 将斜体扶正 */
+    code, kbd, pre, samp {
+      font-family: courier new, courier, monospace;
+    }
+
+    /* 统一等宽字体 */
+    small {
+      font-size: 12px;
+    }
+
+    /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+    /** 重置列表元素 **/
+    ul, ol {
+      list-style: none;
+    }
+
+    /** 重置文本格式元素 **/
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /** 重置表单元素 **/
+    legend {
+      color: #000;
+    }
+
+    /* for ie6 */
+    fieldset, img {
+      border: 0;
+    }
+
+    /* img 搭车：让链接里的 img 无边框 */
+    button, input, select, textarea {
+      font-size: 100%;
+    }
+
+    /* 使得表单元素在 ie 下能继承字体大小 */
+    /* 注：optgroup 无法扶正 */
+
+    /** 重置表格元素 **/
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /* 清除浮动 */
+    .ks-clear:after, .clear:after {
+      content: '\20';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+
+    .ks-clear, .clear {
+      *zoom: 1;
+    }
+
+    .main {
+      padding: 30px 100px;
+    }
+
+    .main h1 {
+      float: left;
+      font-size: 32px;
+      color: #333;
+      text-align: left;
+    }
+
+    .main h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .helps {
+      margin-top: 40px;
+    }
+
+    .helps pre {
+      padding: 20px;
+      margin: 10px 0;
+      border: solid 1px #e7e1cd;
+      background-color: #fffdef;
+      overflow: auto;
+    }
+
+    .icon_lists li {
+      float: left;
+      width: 140px;
+      height: 180px;
+      padding: 0 4px;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    .icon_lists .icon {
+      font-size: 42px;
+      line-height: 100px;
+      margin: 10px 0;
+      color: #333;
+      -webkit-transition: font-size 0.25s ease-out 0s;
+      -moz-transition: font-size 0.25s ease-out 0s;
+      transition: font-size 0.25s ease-out 0s;
+
+    }
+
+    .icon_lists .icon:hover {
+      font-size: 100px;
+    }
+
+    .type-nav {
+      display: inline-block;
+      padding: 4px 8px;
+      margin: 12px 8px;
+      border: 1px solid transparent;
+      color: #3860f4;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .type-nav:hover {
+      color: #3357df;
+      border-color: #3357df;
+      border-radius: 4px;
+      background-color: #f8f8ff;
+      text-decoration: none;
+    }
+
+  </style>
+  <link rel="stylesheet" href="./css/<%= cssTargetPath %>">
+  <style>
+    body {
+      background: none
+    }
+    .main-title {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #eee;
+      overflow: hidden;
+    }
+    .version-wrapper {
+      float: right;
+      margin-top: 18px;
+      margin-right: 8px;
+      font-size: 20px;
+    }
+    .npm {
+      display: inline-block;
+      padding: 0 8px;
+      border-radius: 4px;
+      background-color: #C12127;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<div class="main">
+  <div class="main-title">
+    <h1><%=htmlTemplate.templateTitle%><%= ucTypeID ? " - " + ucTypeID : "" %></h1>
+    <div class="version-wrapper">
+      当前版本：<span class="npm">npm</span> v<span id="version">0.0.0</span>
+    </div>
+  </div>
+
+  <div style="border-bottom: 1px solid #eee;padding-bottom: 30px;">
+    <h2>版本更新</h2>
+    <button disabled type="button" onclick="createFont()" id="btn" class="J_triggerUpdateBtn" style="padding: 8px; cursor: pointer;background-color: white;border: 1px solid cadetblue;">点击更新字体&版本</button>
+    <span style="font-size: 16px;" id="textDiv"></span>
+    <button disabled type="button" onclick="createFont(true)" id="btn" class="J_triggerUpdateBtn" style="padding: 8px; cursor: pointer;margin-left: 16px;background-color: white;border: 1px solid firebrick;">强制更新版本</button>
+  </div>
+
+  <div class="helps" style="font-size: 16px;">
+    <h2>如何使用</h2>
+
+    <div>1、npm安装</div>
+    <pre>npm install @ucloud/ucloud-icons --registry=http://registry.npm.pre.ucloudadmin.com</pre>
+
+    <div>2、引入css文件</div>
+    <pre>require('@ucloud/ucloud-icons/dist/<%= ucTypeID ? ucTypeID + "/" : "" %>css/icon.min.css');</pre>
+
+    <div>3、使用图标</div>
+    <pre>&lt;span class="icon__<%= glyphs[0].fileName%>"&gt;&lt;/span&gt;</pre>
+  </div>
+
+  <div class="helps" style="font-size: 16px;">
+    <h2>控制台使用方法</h2>
+
+    <div>1、找到图标所属分类（咨询设计师）：</div>
+    <div style="margin-bottom: 12px;">
+      <span style="font-size: 14px;">点击名称跳转：</span>
+      <% _.each(ucTypes, function(type) { %>
+        <a class="type-nav" href="https://console-font.pre.ucloudadmin.com/<%= type %>/preview" target="_blank"><%= type %></a>
+      <% }); %>
+    </div>
+
+    <div>2、添加正确的类名</div>
+    <pre>&lt;span class="icon<%= ucTypeID ? "-" + ucTypeID : "" %>__<%= glyphs[0].fileName%>"&gt;&lt;/span&gt;</pre>
+  </div>
+  
+  <div style="margin-top: 40px;">
+    <h2>图标预览</h2>
+    <ul class="icon_lists clear">
+      <% _.each(glyphs, function(glyph) { %>
+      <li>
+        <i class="icon <%= cssClass%><%= glyph.fileName %>"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/<%= ucTypeID ? ucTypeID + '/' : ''%><%= glyph.fileName %>.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            ><%= cssClass%><%= glyph.fileName %></a
+          >
+        </div>
+      </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
+<script>
+  var isAdmin = false;
+
+  //获取用户信息
+  function getUserInfo() {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // 跳转cas
+        if (xhr.response.status === 1) {
+          if (xhr.response.message === "Retry") {
+            location = location.origin;
+            return;
+          }
+
+          window.location = "https://cas.ucloudadmin.com/cas/login?service=" + encodeURIComponent(window.location.href);
+          return;
+        }
+
+        if (xhr.response.data.admin.indexOf(xhr.response.data.user) > -1) {
+          isAdmin = true;
+          document.querySelectorAll(".J_triggerUpdateBtn").forEach(function(btn){
+            btn.removeAttribute("disabled");
+          });
+        }
+      }
+    };
+
+    xhr.withCredentials = true;
+    xhr.open('POST', 'https://font_api.pre.ucloudadmin.com/getUserInfo', true);
+    xhr.send();
+  }
+
+  function createFont(force) {
+    if (!isAdmin) return false;
+
+    var textDiv = document.getElementById("textDiv");
+    textDiv.innerHTML = '正在确认更新...';
+    document.getElementById('btn').style.display = 'none';
+    var xmlhttp;
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.timeout = 1000 * 59;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4) {
+        if(xmlhttp.status == 200) {
+          var result = JSON.parse(xmlhttp.responseText);
+          textDiv.innerHTML = result.message;
+          if (result.status == 0) {
+            location.reload();
+          }
+        }
+      }
+      if(xmlhttp.status == 504) {
+        textDiv.innerHTML = '请求超时，请稍后手动刷新页面，确认版本号是否更新。';
+      }
+    };
+    xmlhttp.ontimeout = function (e) {
+      textDiv.innerHTML = '请求超时，请稍后手动刷新页面，确认版本号是否更新。';
+    };
+    xmlhttp.open("POST", "https://font_api.pre.ucloudadmin.com/font", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send('force=' + force);
+  }
+
+  //获取最新NPM版本
+  function getLatestVersion() {
+    var versionSpan = document.getElementById("version");
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        versionSpan.innerHTML = xhr.response.data;
+      }
+    };
+
+    xhr.open('POST', 'https://font_api.pre.ucloudadmin.com/getLatestVersion', true);
+    xhr.send();
+  }
+
+  getUserInfo();
+  getLatestVersion();
+</script>
+</body>
+</html>

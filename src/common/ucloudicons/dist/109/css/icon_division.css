@@ -1,0 +1,254 @@
+@font-face {
+    font-family: 'ucicon-109';
+    src:    url('../fonts/ucicon-division.eot?v=1602573640355');
+    src:    url('../fonts/ucicon-division.eot?v=1602573640355') format('embedded-opentype'),
+    url('../fonts/ucicon-division.ttf?v=1602573640355') format('truetype'),
+    url('../fonts/ucicon-division.woff?v=1602573640355') format('woff'),
+    url('../fonts/ucicon-division.svg?v=1602573640355') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-109__"], [class*=" icon-109__"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'ucicon-109' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    letter-spacing: 0;
+    -webkit-font-feature-settings: "liga";
+    -moz-font-feature-settings: "liga=1";
+    -moz-font-feature-settings: "liga";
+    -ms-font-feature-settings: "liga" 1;
+    -o-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-109__"]::before, [class*=" icon-109__"]::before { 
+    display: inline-block;
+}
+
+/*icon-content*/
+
+
+.icon-109__company:before {
+                                         content: "\E001";
+                                     }
+
+.icon-109__message:before {
+                                         content: "\E002";
+                                     }
+
+.icon-109__recycle:before {
+                                         content: "\E003";
+                                     }
+
+.icon-109__shockwave:before {
+                                         content: "\E004";
+                                     }
+
+.icon-109__ticket:before {
+                                         content: "\E005";
+                                     }
+
+.icon-109__tidb:before {
+                                         content: "\E006";
+                                     }
+
+.icon-109__uads:before {
+                                         content: "\E007";
+                                     }
+
+.icon-109__uai:before {
+                                         content: "\E008";
+                                     }
+
+.icon-109__uaitrain:before {
+                                         content: "\E009";
+                                     }
+
+.icon-109__uapi:before {
+                                         content: "\E00A";
+                                     }
+
+.icon-109__uarchive:before {
+                                         content: "\E00B";
+                                     }
+
+.icon-109__ucdn:before {
+                                         content: "\E00C";
+                                     }
+
+.icon-109__udas:before {
+                                         content: "\E00D";
+                                     }
+
+.icon-109__udataark:before {
+                                         content: "\E00E";
+                                     }
+
+.icon-109__udb:before {
+                                         content: "\E00F";
+                                     }
+
+.icon-109__uddb:before {
+                                         content: "\E010";
+                                     }
+
+.icon-109__udhost:before {
+                                         content: "\E011";
+                                     }
+
+.icon-109__udnr:before {
+                                         content: "\E012";
+                                     }
+
+.icon-109__udocker:before {
+                                         content: "\E013";
+                                     }
+
+.icon-109__udpn:before {
+                                         content: "\E014";
+                                     }
+
+.icon-109__udw:before {
+                                         content: "\E015";
+                                     }
+
+.icon-109__ues:before {
+                                         content: "\E016";
+                                     }
+
+.icon-109__uewaf:before {
+                                         content: "\E017";
+                                     }
+
+.icon-109__ufile:before {
+                                         content: "\E018";
+                                     }
+
+.icon-109__ufs:before {
+                                         content: "\E019";
+                                     }
+
+.icon-109__ugaa:before {
+                                         content: "\E01A";
+                                     }
+
+.icon-109__ugc:before {
+                                         content: "\E01B";
+                                     }
+
+.icon-109__ugroup:before {
+                                         content: "\E01C";
+                                     }
+
+.icon-109__uhadoop:before {
+                                         content: "\E01D";
+                                     }
+
+.icon-109__uhas:before {
+                                         content: "\E01E";
+                                     }
+
+.icon-109__uhids:before {
+                                         content: "\E01F";
+                                     }
+
+.icon-109__uhost:before {
+                                         content: "\E020";
+                                     }
+
+.icon-109__uhub:before {
+                                         content: "\E021";
+                                     }
+
+.icon-109__ukafka:before {
+                                         content: "\E022";
+                                     }
+
+.icon-109__ulb:before {
+                                         content: "\E023";
+                                     }
+
+.icon-109__ulive:before {
+                                         content: "\E024";
+                                     }
+
+.icon-109__ulog:before {
+                                         content: "\E025";
+                                     }
+
+.icon-109__umedia:before {
+                                         content: "\E026";
+                                     }
+
+.icon-109__umem:before {
+                                         content: "\E027";
+                                     }
+
+.icon-109__umon:before {
+                                         content: "\E028";
+                                     }
+
+.icon-109__unet:before {
+                                         content: "\E029";
+                                     }
+
+.icon-109__uodn:before {
+                                         content: "\E02A";
+                                     }
+
+.icon-109__uodn2:before {
+                                         content: "\E02B";
+                                     }
+
+.icon-109__uphost:before {
+                                         content: "\E02C";
+                                     }
+
+.icon-109__urecord:before {
+                                         content: "\E02D";
+                                     }
+
+.icon-109__usa:before {
+                                         content: "\E02E";
+                                     }
+
+.icon-109__uscheduler:before {
+                                         content: "\E02F";
+                                     }
+
+.icon-109__uslpe:before {
+                                         content: "\E030";
+                                     }
+
+.icon-109__ussl:before {
+                                         content: "\E031";
+                                     }
+
+.icon-109__uvideo:before {
+                                         content: "\E032";
+                                     }
+
+.icon-109__uws:before {
+                                         content: "\E033";
+                                     }
+
+.icon-109__vpc:before {
+                                         content: "\E034";
+                                     }
+
+.icon-109__vpc2:before {
+                                         content: "\E035";
+                                     }

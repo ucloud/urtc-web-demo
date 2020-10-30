@@ -1,0 +1,3736 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <title>UCloud字体图标库</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    /** 清除内外边距 **/
+    body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+    dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+    pre, /* text formatting elements 文本格式元素 */
+    form, fieldset, legend, button, input, textarea, /* form elements 表单元素 */
+    th, td /* table elements 表格元素 */
+    {
+      margin: 0;
+      padding: 0;
+    }
+
+    /** 设置默认字体 **/
+    body,
+    button, input, select, textarea /* for ie */
+    {
+      font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 100%;
+    }
+
+    address, cite, dfn, em, var {
+      font-style: normal;
+    }
+
+    /* 将斜体扶正 */
+    code, kbd, pre, samp {
+      font-family: courier new, courier, monospace;
+    }
+
+    /* 统一等宽字体 */
+    small {
+      font-size: 12px;
+    }
+
+    /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+    /** 重置列表元素 **/
+    ul, ol {
+      list-style: none;
+    }
+
+    /** 重置文本格式元素 **/
+    a {
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /** 重置表单元素 **/
+    legend {
+      color: #000;
+    }
+
+    /* for ie6 */
+    fieldset, img {
+      border: 0;
+    }
+
+    /* img 搭车：让链接里的 img 无边框 */
+    button, input, select, textarea {
+      font-size: 100%;
+    }
+
+    /* 使得表单元素在 ie 下能继承字体大小 */
+    /* 注：optgroup 无法扶正 */
+
+    /** 重置表格元素 **/
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    /* 清除浮动 */
+    .ks-clear:after, .clear:after {
+      content: '\20';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+
+    .ks-clear, .clear {
+      *zoom: 1;
+    }
+
+    .main {
+      padding: 30px 100px;
+    }
+
+    .main h1 {
+      float: left;
+      font-size: 32px;
+      color: #333;
+      text-align: left;
+    }
+
+    .main h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .helps {
+      margin-top: 40px;
+    }
+
+    .helps pre {
+      padding: 20px;
+      margin: 10px 0;
+      border: solid 1px #e7e1cd;
+      background-color: #fffdef;
+      overflow: auto;
+    }
+
+    .icon_lists li {
+      float: left;
+      width: 140px;
+      height: 180px;
+      padding: 0 4px;
+      text-align: center;
+      word-break: break-all;
+    }
+
+    .icon_lists .icon {
+      font-size: 42px;
+      line-height: 100px;
+      margin: 10px 0;
+      color: #333;
+      -webkit-transition: font-size 0.25s ease-out 0s;
+      -moz-transition: font-size 0.25s ease-out 0s;
+      transition: font-size 0.25s ease-out 0s;
+
+    }
+
+    .icon_lists .icon:hover {
+      font-size: 100px;
+    }
+
+    .type-nav {
+      display: inline-block;
+      padding: 4px 8px;
+      margin: 12px 8px;
+      border: 1px solid transparent;
+      color: #3860f4;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .type-nav:hover {
+      color: #3357df;
+      border-color: #3357df;
+      border-radius: 4px;
+      background-color: #f8f8ff;
+      text-decoration: none;
+    }
+
+  </style>
+  <link rel="stylesheet" href="./css/icon_division.css">
+  <style>
+    body {
+      background: none
+    }
+    .main-title {
+      margin-bottom: 30px;
+      border-bottom: 1px solid #eee;
+      overflow: hidden;
+    }
+    .version-wrapper {
+      float: right;
+      margin-top: 18px;
+      margin-right: 8px;
+      font-size: 20px;
+    }
+    .npm {
+      display: inline-block;
+      padding: 0 8px;
+      border-radius: 4px;
+      background-color: #C12127;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+<div class="main">
+  <div class="main-title">
+    <h1>UCloud字体图标库 - www</h1>
+    <div class="version-wrapper">
+      当前版本：<span class="npm">npm</span> v<span id="version">0.0.0</span>
+    </div>
+  </div>
+
+  <div style="border-bottom: 1px solid #eee;padding-bottom: 30px;">
+    <h2>版本更新</h2>
+    <button disabled type="button" onclick="createFont()" id="btn" class="J_triggerUpdateBtn" style="padding: 8px; cursor: pointer;background-color: white;border: 1px solid cadetblue;">点击更新字体&版本</button>
+    <span style="font-size: 16px;" id="textDiv"></span>
+    <button disabled type="button" onclick="createFont(true)" id="btn" class="J_triggerUpdateBtn" style="padding: 8px; cursor: pointer;margin-left: 16px;background-color: white;border: 1px solid firebrick;">强制更新版本</button>
+  </div>
+
+  <div class="helps" style="font-size: 16px;">
+    <h2>如何使用</h2>
+
+    <div>1、npm安装</div>
+    <pre>npm install @ucloud/ucloud-icons --registry=http://registry.npm.pre.ucloudadmin.com</pre>
+
+    <div>2、引入css文件</div>
+    <pre>require('@ucloud/ucloud-icons/dist/www/css/icon.min.css');</pre>
+
+    <div>3、使用图标</div>
+    <pre>&lt;span class="icon__AMD"&gt;&lt;/span&gt;</pre>
+  </div>
+
+  <div class="helps" style="font-size: 16px;">
+    <h2>控制台使用方法</h2>
+
+    <div>1、找到图标所属分类（咨询设计师）：</div>
+    <div style="margin-bottom: 12px;">
+      <span style="font-size: 14px;">点击名称跳转：</span>
+      
+        <a class="type-nav" href="https://console-font.pre.ucloudadmin.com/109/preview" target="_blank">109</a>
+      
+        <a class="type-nav" href="https://console-font.pre.ucloudadmin.com/product/preview" target="_blank">product</a>
+      
+        <a class="type-nav" href="https://console-font.pre.ucloudadmin.com/www/preview" target="_blank">www</a>
+      
+    </div>
+
+    <div>2、添加正确的类名</div>
+    <pre>&lt;span class="icon-www__AMD"&gt;&lt;/span&gt;</pre>
+  </div>
+  
+  <div style="margin-top: 40px;">
+    <h2>图标预览</h2>
+    <ul class="icon_lists clear">
+      
+      <li>
+        <i class="icon icon-www__AMD"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/AMD.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__AMD</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__Github"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/Github.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__Github</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__Java"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/Java.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__Java</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__NEW"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/NEW.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__NEW</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__OpenStack"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/OpenStack.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__OpenStack</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__Uhybrid01"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/Uhybrid01.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__Uhybrid01</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__accessgw"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/accessgw.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__accessgw</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ai"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ai.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ai</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__air-play"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/air-play.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__air-play</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__android"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/android.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__android</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__apikey"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/apikey.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__apikey</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__approve"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/approve.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__approve</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__aqfh"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/aqfh.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__aqfh</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__arrow-down"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/arrow-down.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__arrow-down</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__arrow-left"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/arrow-left.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__arrow-left</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__arrow-right"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/arrow-right.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__arrow-right</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__arrow-up"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/arrow-up.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__arrow-up</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__backdoor"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/backdoor.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__backdoor</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__baiju"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/baiju.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__baiju</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__bandwidth-web"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/bandwidth-web.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__bandwidth-web</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__beta"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/beta.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__beta</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__briefcase-2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/briefcase-2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__briefcase-2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__briefcase"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/briefcase.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__briefcase</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__bucket"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/bucket.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__bucket</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__buoy"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/buoy.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__buoy</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__caas"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/caas.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__caas</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__caret-down"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/caret-down.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__caret-down</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__caret-left"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/caret-left.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__caret-left</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__caret-right"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/caret-right.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__caret-right</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__caret-up"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/caret-up.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__caret-up</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cbox-ed"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cbox-ed.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cbox-ed</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cbox"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cbox.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cbox</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__censor"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/censor.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__censor</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__centos"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/centos.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__centos</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__checkbox-ed"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/checkbox-ed.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__checkbox-ed</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__checkbox"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/checkbox.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__checkbox</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-check_hover"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-check_hover.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-check_hover</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-cross"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-cross.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-cross</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-cross2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-cross2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-cross2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-dotted-md"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-dotted-md.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-dotted-md</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-dotted"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-dotted.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-dotted</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-fill"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-fill.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-fill</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-mark2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-mark2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-mark2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-md"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-md.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-md</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-play"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-play.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-play</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-question"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-question.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-question</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-sm"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-sm.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-sm</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle-yes"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle-yes.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle-yes</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__circle"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/circle.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__circle</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__clock"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/clock.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__clock</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__closeeye"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/closeeye.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__closeeye</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cloud-download"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cloud-download.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cloud-download</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cloud-paas"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cloud-paas.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cloud-paas</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cloudshell"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cloudshell.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cloudshell</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cog"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cog.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cog</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__company"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/company.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__company</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cross"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cross.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cross</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__cube"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/cube.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__cube</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__dashboard"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/dashboard.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__dashboard</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__data-analyse"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/data-analyse.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__data-analyse</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__data-center-web"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/data-center-web.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__data-center-web</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__debian"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/debian.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__debian</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__disc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/disc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__disc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__down"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/down.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__down</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__down22"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/down22.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__down22</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__drgs"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/drgs.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__drgs</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__en_logo"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/en_logo.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__en_logo</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__esc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/esc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__esc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__eye"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/eye.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__eye</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__fast"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/fast.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__fast</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__fenxi"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/fenxi.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__fenxi</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__filter"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/filter.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__filter</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__flexible"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/flexible.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__flexible</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__fuhao"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/fuhao.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__fuhao</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__gentoo"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/gentoo.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__gentoo</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__go-new"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/go-new.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__go-new</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__go"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/go.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__go</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__gpu"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/gpu.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__gpu</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__head-2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/head-2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__head-2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__head"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/head.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__head</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__headset"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/headset.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__headset</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__hela"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/hela.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__hela</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__helpbook"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/helpbook.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__helpbook</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__hot"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/hot.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__hot</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__huanjing"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/huanjing.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__huanjing</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__icon2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/icon2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__icon2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__inbox"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/inbox.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__inbox</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__industry"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/industry.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__industry</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__intel"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/intel.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__intel</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ios"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ios.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ios</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__iotedge"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/iotedge.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__iotedge</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__iotsdk"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/iotsdk.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__iotsdk</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ipsecvpn"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ipsecvpn.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ipsecvpn</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__jiaohuanji"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/jiaohuanji.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__jiaohuanji</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__jiekou"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/jiekou.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__jiekou</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__jixie1"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/jixie1.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__jixie1</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__kouzhan"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/kouzhan.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__kouzhan</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__layers"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/layers.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__layers</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__left"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/left.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__left</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__lightning"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/lightning.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__lightning</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__loading"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/loading.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__loading</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__location"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/location.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__location</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__logo-ucloud"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/logo-ucloud.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__logo-ucloud</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__logo"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/logo.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__logo</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__logo_new"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/logo_new.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__logo_new</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ma"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ma.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ma</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__mail"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/mail.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__mail</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__managed-cluster"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/managed-cluster.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__managed-cluster</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__menu"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/menu.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__menu</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__message"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/message.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__message</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__minus"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/minus.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__minus</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__mobile"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/mobile.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__mobile</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__more-new"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/more-new.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__more-new</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__net"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/net.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__net</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__node-web"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/node-web.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__node-web</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ocr"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ocr.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ocr</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__pc-left"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/pc-left.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__pc-left</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__pc-right"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/pc-right.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__pc-right</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__pdf"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/pdf.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__pdf</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__php"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/php.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__php</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__play"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/play.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__play</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__plus"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/plus.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__plus</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__proline"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/proline.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__proline</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__python"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/python.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__python</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__qiming"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/qiming.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__qiming</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__qq-fill"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/qq-fill.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__qq-fill</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__qqtc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/qqtc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__qqtc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__qr-code"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/qr-code.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__qr-code</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__qyw"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/qyw.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__qyw</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__recommend"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/recommend.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__recommend</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__recycle"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/recycle.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__recycle</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__redhat"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/redhat.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__redhat</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__refresh"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/refresh.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__refresh</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ribbon"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ribbon.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ribbon</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__right"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/right.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__right</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__rlsm"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/rlsm.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__rlsm</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__rmb-02"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/rmb-02.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__rmb-02</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__rmb"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/rmb.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__rmb</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__roma"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/roma.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__roma</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__safehouse"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/safehouse.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__safehouse</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__safehouse2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/safehouse2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__safehouse2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__search"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/search.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__search</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__share"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/share.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__share</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__shockwave"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/shockwave.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__shockwave</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__shuffle"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/shuffle.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__shuffle</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sidebar_headset"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sidebar_headset.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sidebar_headset</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sidebar_phone"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sidebar_phone.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sidebar_phone</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sidebar_security"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sidebar_security.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sidebar_security</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sidebar_web"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sidebar_web.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sidebar_web</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sles"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sles.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sles</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sort"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sort.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sort</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__square-add"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/square-add.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__square-add</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__survey"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/survey.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__survey</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__sxt"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/sxt.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__sxt</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__tiangang"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/tiangang.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__tiangang</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__tidb"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/tidb.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__tidb</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__time"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/time.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__time</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__tydd"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/tydd.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__tydd</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uads"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uads.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uads</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uai"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uai.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uai</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uaitrain"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uaitrain.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uaitrain</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uanycastclean"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uanycastclean.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uanycastclean</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uapi"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uapi.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uapi</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uarchive"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uarchive.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uarchive</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uas"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uas.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uas</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ucabinet"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ucabinet.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ucabinet</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ucamon"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ucamon.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ucamon</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ucdn"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ucdn.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ucdn</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ucf"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ucf.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ucf</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ucli"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ucli.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ucli</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ucloudstack"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ucloudstack.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ucloudstack</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udas"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udas.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udas</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udataark"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udataark.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udataark</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udb"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udb.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udb</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uddb"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uddb.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uddb</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uddp"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uddp.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uddp</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udhost"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udhost.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udhost</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udisk"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udisk.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udisk</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udnr"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udnr.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udnr</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udns"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udns.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udns</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udocker"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udocker.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udocker</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udpn"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udpn.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udpn</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udts"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udts.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udts</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__udw"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/udw.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__udw</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ues"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ues.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ues</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uewaf"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uewaf.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uewaf</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ufile"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ufile.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ufile</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uflink"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uflink.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uflink</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ufs"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ufs.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ufs</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ugaa"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ugaa.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ugaa</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ugc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ugc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ugc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ugroup"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ugroup.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ugroup</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhadoop"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhadoop.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhadoop</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhas"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhas.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhas</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhids"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhids.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhids</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhost"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhost.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhost</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhub"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhub.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhub</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhybrid"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhybrid.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhybrid</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uhyperbox"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uhyperbox.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uhyperbox</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uiot"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uiot.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uiot</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uips"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uips.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uips</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uk8s"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uk8s.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uk8s</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ukafka"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ukafka.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ukafka</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ukms"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ukms.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ukms</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ulan"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ulan.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ulan</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ulb"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ulb.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ulb</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ulink"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ulink.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ulink</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ulive"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ulive.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ulive</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ulog"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ulog.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ulog</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umaa"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umaa.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umaa</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umai"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umai.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umai</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umarket"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umarket.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umarket</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umbrella"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umbrella.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umbrella</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umedia"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umedia.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umedia</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umem"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umem.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umem</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umon"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umon.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umon</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__umq"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/umq.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__umq</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__unet"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/unet.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__unet</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__untu"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/untu.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__untu</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uodn"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uodn.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uodn</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uodn2"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uodn2.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uodn2</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uops"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uops.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uops</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__up"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/up.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__up</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uphost"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uphost.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uphost</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uprivate"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uprivate.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uprivate</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__urecord"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/urecord.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__urecord</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__urmp"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/urmp.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__urmp</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__urtc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/urtc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__urtc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__usa"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/usa.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__usa</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__usable-area"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/usable-area.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__usable-area</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__usafe"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/usafe.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__usafe</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uscheduler"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uscheduler.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uscheduler</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__usec"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/usec.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__usec</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__user"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/user.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__user</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__userver"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/userver.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__userver</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uservice"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uservice.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uservice</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uslpe"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uslpe.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uslpe</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__usql"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/usql.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__usql</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ussl"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ussl.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ussl</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__utsdb"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/utsdb.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__utsdb</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uvideo"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uvideo.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uvideo</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uvpc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uvpc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uvpc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uwaf"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uwaf.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uwaf</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uwan"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uwan.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uwan</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__uws"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/uws.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__uws</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__video"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/video.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__video</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__vitality"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/vitality.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__vitality</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__vpc"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/vpc.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__vpc</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__wechat"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/wechat.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__wechat</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__weibo"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/weibo.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__weibo</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__weixing"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/weixing.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__weixing</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__wenqu"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/wenqu.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__wenqu</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__windows"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/windows.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__windows</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__wuqu"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/wuqu.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__wuqu</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__xuanwu"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/xuanwu.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__xuanwu</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__yaoguang"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/yaoguang.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__yaoguang</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__yizhanpz"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/yizhanpz.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__yizhanpz</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__yuheng"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/yuheng.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__yuheng</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__ziwei"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/ziwei.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__ziwei</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__zjrz"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/zjrz.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__zjrz</a
+          >
+        </div>
+      </li>
+      
+      <li>
+        <i class="icon icon-www__zongduan"></i>
+
+        <div class="fontclass">
+          <a
+            href="http://ued.ucloud.cn/%E7%BA%BF%E4%B8%8A%E5%9B%BE%E6%A0%87/www/zongduan.svg"
+            target="_blank"
+            style="color: #3860f4; text-decoration: underline;"
+            >icon-www__zongduan</a
+          >
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<script>
+  var isAdmin = false;
+
+  //获取用户信息
+  function getUserInfo() {
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // 跳转cas
+        if (xhr.response.status === 1) {
+          if (xhr.response.message === "Retry") {
+            location = location.origin;
+            return;
+          }
+
+          window.location = "https://cas.ucloudadmin.com/cas/login?service=" + encodeURIComponent(window.location.href);
+          return;
+        }
+
+        if (xhr.response.data.admin.indexOf(xhr.response.data.user) > -1) {
+          isAdmin = true;
+          document.querySelectorAll(".J_triggerUpdateBtn").forEach(function(btn){
+            btn.removeAttribute("disabled");
+          });
+        }
+      }
+    };
+
+    xhr.withCredentials = true;
+    xhr.open('POST', 'https://font_api.pre.ucloudadmin.com/getUserInfo', true);
+    xhr.send();
+  }
+
+  function createFont(force) {
+    if (!isAdmin) return false;
+
+    var textDiv = document.getElementById("textDiv");
+    textDiv.innerHTML = '正在确认更新...';
+    document.getElementById('btn').style.display = 'none';
+    var xmlhttp;
+    if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp = new XMLHttpRequest();
+    }
+    else {// code for IE6, IE5
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.timeout = 1000 * 59;
+    xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4) {
+        if(xmlhttp.status == 200) {
+          var result = JSON.parse(xmlhttp.responseText);
+          textDiv.innerHTML = result.message;
+          if (result.status == 0) {
+            location.reload();
+          }
+        }
+      }
+      if(xmlhttp.status == 504) {
+        textDiv.innerHTML = '请求超时，请稍后手动刷新页面，确认版本号是否更新。';
+      }
+    };
+    xmlhttp.ontimeout = function (e) {
+      textDiv.innerHTML = '请求超时，请稍后手动刷新页面，确认版本号是否更新。';
+    };
+    xmlhttp.open("POST", "https://font_api.pre.ucloudadmin.com/font", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send('force=' + force);
+  }
+
+  //获取最新NPM版本
+  function getLatestVersion() {
+    var versionSpan = document.getElementById("version");
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        versionSpan.innerHTML = xhr.response.data;
+      }
+    };
+
+    xhr.open('POST', 'https://font_api.pre.ucloudadmin.com/getLatestVersion', true);
+    xhr.send();
+  }
+
+  getUserInfo();
+  getLatestVersion();
+</script>
+</body>
+</html>

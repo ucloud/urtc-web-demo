@@ -1,0 +1,12 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 96 96" xml:space="preserve">
+  <g class="st0">
+    <defs>
+      <path id="SVGID_1_" class="st0" d="M60.6 66.3V53.5l7-4v12.8z"/>
+    </defs>
+    <clipPath id="SVGID_2_">
+      <use xlink:href="#SVGID_1_" overflow="visible"/>
+    </clipPath>
+  </g>
+  <path class="st2" d="M48.3 1.9L8.5 25.3V71l39.7 23.4L88 71.1V25.3L48.3 1.9zm0 9.3l27 15.9-28.7 17-27-15.9 28.7-17zM80 66.5L48.3 85.2 16.5 66.5V65l30 13.8-30-20.3V55l29.6 12.5-29.6-18.2v-3.7l29.2 13.1-29.2-19.9v-3.2l30 17.7L80 33.6v32.9z"/>
+  <path class="st2" d="M62.6 59.8v5.1l2.7-1.6v-5c1.3-1.3 2.3-3.3 2.3-5.1 0-2.2-1.6-3.1-3.5-2s-3.5 3.8-3.5 6c0 1.7.9 2.6 2 2.6z"/>
+</svg>

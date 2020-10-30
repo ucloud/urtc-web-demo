@@ -1,0 +1,374 @@
+@font-face {
+    font-family: 'ucicon-product';
+    src:    url('../fonts/ucicon-division.eot?v=1602573640356');
+    src:    url('../fonts/ucicon-division.eot?v=1602573640356') format('embedded-opentype'),
+    url('../fonts/ucicon-division.ttf?v=1602573640356') format('truetype'),
+    url('../fonts/ucicon-division.woff?v=1602573640356') format('woff'),
+    url('../fonts/ucicon-division.svg?v=1602573640356') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-product__"], [class*=" icon-product__"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'ucicon-product' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    letter-spacing: 0;
+    -webkit-font-feature-settings: "liga";
+    -moz-font-feature-settings: "liga=1";
+    -moz-font-feature-settings: "liga";
+    -ms-font-feature-settings: "liga" 1;
+    -o-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-product__"]::before, [class*=" icon-product__"]::before { 
+    display: inline-block;
+}
+
+/*icon-content*/
+
+
+.icon-product__accessgw:before {
+                                         content: "\E001";
+                                     }
+
+.icon-product__censor:before {
+                                         content: "\E002";
+                                     }
+
+.icon-product__company:before {
+                                         content: "\E003";
+                                     }
+
+.icon-product__cube:before {
+                                         content: "\E004";
+                                     }
+
+.icon-product__dashboard3:before {
+                                         content: "\E005";
+                                     }
+
+.icon-product__gpu:before {
+                                         content: "\E006";
+                                     }
+
+.icon-product__hela:before {
+                                         content: "\E007";
+                                     }
+
+.icon-product__iotedge:before {
+                                         content: "\E008";
+                                     }
+
+.icon-product__ipsecvpn:before {
+                                         content: "\E009";
+                                     }
+
+.icon-product__message:before {
+                                         content: "\E00A";
+                                     }
+
+.icon-product__mq:before {
+                                         content: "\E00B";
+                                     }
+
+.icon-product__qqtc:before {
+                                         content: "\E00C";
+                                     }
+
+.icon-product__recycle:before {
+                                         content: "\E00D";
+                                     }
+
+.icon-product__roma:before {
+                                         content: "\E00E";
+                                     }
+
+.icon-product__shockwave:before {
+                                         content: "\E00F";
+                                     }
+
+.icon-product__tidb:before {
+                                         content: "\E010";
+                                     }
+
+.icon-product__uads:before {
+                                         content: "\E011";
+                                     }
+
+.icon-product__uai:before {
+                                         content: "\E012";
+                                     }
+
+.icon-product__uaitrain:before {
+                                         content: "\E013";
+                                     }
+
+.icon-product__uanycastclean:before {
+                                         content: "\E014";
+                                     }
+
+.icon-product__uapi:before {
+                                         content: "\E015";
+                                     }
+
+.icon-product__uapigateway:before {
+                                         content: "\E016";
+                                     }
+
+.icon-product__uarchive:before {
+                                         content: "\E017";
+                                     }
+
+.icon-product__uas:before {
+                                         content: "\E018";
+                                     }
+
+.icon-product__ucamon:before {
+                                         content: "\E019";
+                                     }
+
+.icon-product__ucdn:before {
+                                         content: "\E01A";
+                                     }
+
+.icon-product__ucgs:before {
+                                         content: "\E01B";
+                                     }
+
+.icon-product__udas:before {
+                                         content: "\E01C";
+                                     }
+
+.icon-product__udataark:before {
+                                         content: "\E01D";
+                                     }
+
+.icon-product__udb:before {
+                                         content: "\E01E";
+                                     }
+
+.icon-product__uddb:before {
+                                         content: "\E01F";
+                                     }
+
+.icon-product__udhost:before {
+                                         content: "\E020";
+                                     }
+
+.icon-product__udisk:before {
+                                         content: "\E021";
+                                     }
+
+.icon-product__udnr:before {
+                                         content: "\E022";
+                                     }
+
+.icon-product__udns:before {
+                                         content: "\E023";
+                                     }
+
+.icon-product__udocker:before {
+                                         content: "\E024";
+                                     }
+
+.icon-product__udpn:before {
+                                         content: "\E025";
+                                     }
+
+.icon-product__udts:before {
+                                         content: "\E026";
+                                     }
+
+.icon-product__udw:before {
+                                         content: "\E027";
+                                     }
+
+.icon-product__ues:before {
+                                         content: "\E028";
+                                     }
+
+.icon-product__uewaf:before {
+                                         content: "\E029";
+                                     }
+
+.icon-product__ufile:before {
+                                         content: "\E02A";
+                                     }
+
+.icon-product__uflink:before {
+                                         content: "\E02B";
+                                     }
+
+.icon-product__ufs:before {
+                                         content: "\E02C";
+                                     }
+
+.icon-product__ugaa:before {
+                                         content: "\E02D";
+                                     }
+
+.icon-product__ugc:before {
+                                         content: "\E02E";
+                                     }
+
+.icon-product__ugn:before {
+                                         content: "\E02F";
+                                     }
+
+.icon-product__ugroup:before {
+                                         content: "\E030";
+                                     }
+
+.icon-product__uhadoop:before {
+                                         content: "\E031";
+                                     }
+
+.icon-product__uhas:before {
+                                         content: "\E032";
+                                     }
+
+.icon-product__uhids:before {
+                                         content: "\E033";
+                                     }
+
+.icon-product__uhost:before {
+                                         content: "\E034";
+                                     }
+
+.icon-product__uhub:before {
+                                         content: "\E035";
+                                     }
+
+.icon-product__uhybrid:before {
+                                         content: "\E036";
+                                     }
+
+.icon-product__uhyperbox:before {
+                                         content: "\E037";
+                                     }
+
+.icon-product__uiot:before {
+                                         content: "\E038";
+                                     }
+
+.icon-product__uk8s:before {
+                                         content: "\E039";
+                                     }
+
+.icon-product__ukafka:before {
+                                         content: "\E03A";
+                                     }
+
+.icon-product__ukms:before {
+                                         content: "\E03B";
+                                     }
+
+.icon-product__ulb:before {
+                                         content: "\E03C";
+                                     }
+
+.icon-product__ulive:before {
+                                         content: "\E03D";
+                                     }
+
+.icon-product__ulog:before {
+                                         content: "\E03E";
+                                     }
+
+.icon-product__umarket:before {
+                                         content: "\E03F";
+                                     }
+
+.icon-product__umedia:before {
+                                         content: "\E040";
+                                     }
+
+.icon-product__umem:before {
+                                         content: "\E041";
+                                     }
+
+.icon-product__umon:before {
+                                         content: "\E042";
+                                     }
+
+.icon-product__unet:before {
+                                         content: "\E043";
+                                     }
+
+.icon-product__uodn:before {
+                                         content: "\E044";
+                                     }
+
+.icon-product__uodn2:before {
+                                         content: "\E045";
+                                     }
+
+.icon-product__uphost:before {
+                                         content: "\E046";
+                                     }
+
+.icon-product__uprivate:before {
+                                         content: "\E047";
+                                     }
+
+.icon-product__urecord:before {
+                                         content: "\E048";
+                                     }
+
+.icon-product__urmp:before {
+                                         content: "\E049";
+                                     }
+
+.icon-product__urtc:before {
+                                         content: "\E04A";
+                                     }
+
+.icon-product__usa:before {
+                                         content: "\E04B";
+                                     }
+
+.icon-product__uslpe:before {
+                                         content: "\E04C";
+                                     }
+
+.icon-product__usmc:before {
+                                         content: "\E04D";
+                                     }
+
+.icon-product__usql:before {
+                                         content: "\E04E";
+                                     }
+
+.icon-product__ussl:before {
+                                         content: "\E04F";
+                                     }
+
+.icon-product__utsdb:before {
+                                         content: "\E050";
+                                     }
+
+.icon-product__uws:before {
+                                         content: "\E051";
+                                     }
+
+.icon-product__video:before {
+                                         content: "\E052";
+                                     }
+
+.icon-product__vpc:before {
+                                         content: "\E053";
+                                     }
