@@ -1,5 +1,5 @@
 const recordConfig = {
-  bucket: "urtc-test",
-  region: "cn-bj",
+  bucket: "",
+  region: "",
 };
 export {recordConfig};
