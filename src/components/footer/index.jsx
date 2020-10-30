@@ -477,7 +477,7 @@ class ClassFooter extends React.Component {
 
   setVolume = (e) => {
     let { audioVolumeFlag } = this.state;
-    //产品说是静音效果
+    //静音效果
     // let v = audioVolumeFlag ? 100 : 0;
     // console.log(v);
     // this.Client.setAudioVolume({ volume: v }, (Err) => {
