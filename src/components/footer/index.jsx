@@ -304,7 +304,7 @@ class ClassFooter extends React.Component {
       recordPlayUrl: null,
     };
   }
-  
+
 
   componentDidMount() { }
 
@@ -477,7 +477,7 @@ class ClassFooter extends React.Component {
 
   setVolume = (e) => {
     let { audioVolumeFlag } = this.state;
-    //静音效果
+    //产品说是静音效果
     // let v = audioVolumeFlag ? 100 : 0;
     // console.log(v);
     // this.Client.setAudioVolume({ volume: v }, (Err) => {
@@ -515,11 +515,11 @@ class ClassFooter extends React.Component {
       relayShow: flag,
     });
   };
-  startRecord=(flag)=>{
-    let storeRecord = this.props.store.record;
+  startRecord = (flag) => {
+    // let storeRecord = this.props.store.record;
     const { videoRecord } = this.state;
     console.log(videoRecord)
-    if(videoRecord){
+    if (videoRecord) {
       this.Client.stopRecord((Error, Result) => {
         if (Error) {
           alert(`停止录制失败 ${Error}`);
@@ -533,12 +533,12 @@ class ClassFooter extends React.Component {
           recordPlayUrl: this.props.store.record.url,
         });
       });
-    }else{
+    } else {
       this.setState({
         recordShow: flag,
       });
     }
-    
+
   }
   changeRecordUrlModal = () => {
     this.setState({
@@ -549,7 +549,7 @@ class ClassFooter extends React.Component {
   render() {
     const {
       videoRecord,
-      recordVisible,
+      // recordVisible,
       videoRelay,
       // setVolumeDisplay,
       relayShow,
@@ -632,9 +632,8 @@ class ClassFooter extends React.Component {
                   )}
 
                   <div
-                    className={`btn_wrapper active-record ${
-                      videoRecord ? "video-record" : ""
-                    }`}
+                    className={`btn_wrapper active-record ${videoRecord ? "video-record" : ""
+                      }`}
                     // onClick={this.recordAction}
                     onClick={() => this.startRecord(true)}
                   >

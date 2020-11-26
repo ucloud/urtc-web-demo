@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {
   Modal,
   Steps,
@@ -13,6 +12,9 @@ import { randNum } from "../../util";
 import CameraTest from "../cameraTest/index.jsx";
 import SpeakerTest from "../speakerTest/index.jsx";
 import MicTest from "../micTest/index.jsx";
+import {
+  StepWrapper, ErrorWrapper, BtnWrapper, EndWrapper
+} from './index.styles'
 import {
   // isWeChat,
 } from '../../util/index'
@@ -46,70 +48,6 @@ const deviceType = {
  */
 
 // 样式
-const StepWrapper = styled.div`
-  padding: 10px 0 0 0;
-  text-align: center;
-`;
-const ErrorWrapper = styled.div`
-  position: relative;
-  height: 100%;
-  padding: 20px;
-`;
-
-// const NoSpearList = styled.div`
-
-// `
-const BtnWrapper = styled.div`
-  :hover {
-    opacity: 0.9;
-  }
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background-color: ${(props) =>
-    props.backgoundColor ? props.backgoundColor : "#366bee"};
-  color: ${(props) => (props.color ? props.color : "#fff")};
-  cursor: pointer;
-  font-size: 16px;
-  position: absolute;
-  bottom: 0;
-`;
-
-const EndWrapper = styled.div`
-  position: relative;
-  height: 318px;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 0;
-  .content {
-    > div:nth-child(odd) {
-      background: #f7f7fd;
-    }
-  }
-
-  .error {
-    color: #f44336;
-  }
-  p {
-    padding: 0;
-    margin: 0;
-  }
-  .left,
-  .right {
-    vertical-align: top;
-    height: 32px;
-    line-height: 32px;
-    display: inline-block;
-    width: 200px;
-  }
-  .errorInfo {
-    color: #f44336;
-    background-color: null;
-    position: absolute;
-    bottom: 60px;
-    left: 35%;
-  }
-`;
 //模块
 @inject("store")
 @observer
@@ -340,6 +278,18 @@ class Testing extends React.Component {
     this.next();
   };
 
+
+  renderBtn = () => {
+    const { camera = true, speaker = true, mic = true, } = this.state.statusMap;
+    if (camera && speaker && mic) {
+      return (
+        <BtnWrapper onClick={this.closeModal}>关闭</BtnWrapper>
+      )
+    } else {
+      return (<BtnWrapper onClick={this.reset}>重新检测</BtnWrapper>)
+    }
+  }
+
   render() {
     const { show } = this.props;
     const {
@@ -455,7 +405,7 @@ class Testing extends React.Component {
                 {!statusMap.mic && (
                   <p className="errorInfo">当前您的麦克风异常，无法进入直播</p>
                 )}
-                <BtnWrapper onClick={this.reset}>重新检测</BtnWrapper>
+                {this.renderBtn()}
               </EndWrapper>
             )}
           </StepWrapper>

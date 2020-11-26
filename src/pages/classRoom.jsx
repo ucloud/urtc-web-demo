@@ -7,7 +7,7 @@ import "../common/ucloudicons/dist/css/icon.min.css";
 import sdk, { Client } from "urtc-sdk";
 import { Message } from "@ucloud-fe/react-components";
 import ClassFooter from "../components/footer/index";
-import ClassHeader from "../components/header/index";
+import ClassHeader from "../components/header/new";
 import ClassVideoWrapper from "../container/classVideoWrapper/index";
 import { getCookie } from "../util/cookie";
 
@@ -81,10 +81,20 @@ class ClassRoom extends React.Component {
     let userId = this.props.store.settings.userId || data.userId;
     const AppId = storeData.AppId;
     const AppKey = storeData.AppKey;
+    const signalLink = storeData.signalLink;
     this.setState({
       roomId: roomId,
       userName: storeData.userName,
     });
+    console.log('sss', storeData)
+    if (process.env.REACT_APP_ENV !== "pre" && signalLink !== ''){
+      sdk.setServers({
+        // api: storeData.apiLink,   // api 为 URTC 房间服务的访问地址
+        // log: storeData.logLink, // log 为 URTC 日志服务的访问地址
+        signal: signalLink, //storeData.signalLink // signal 为 URTC 信令服务的访问地址
+      })
+    }
+    
     let token = sdk.generateToken(AppId, AppKey, roomId, userId);
     this.Client = new Client(AppId, token, {
       type: storeData.roomType,

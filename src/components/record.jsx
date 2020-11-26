@@ -5,7 +5,7 @@ import { observer, inject } from "mobx-react";
 import sdk, { Client } from "urtc-sdk";
 import "./settings.css";
 import { isPC } from "../util/index";
-import {recordConfig} from "../config/record";
+import { recordConfig } from "../config/record";
 
 import {
   Modal,
@@ -48,8 +48,25 @@ class Record extends React.Component {
     this.watermarkMsgChange = this.watermarkMsgChange.bind(this);
   }
   componentDidMount() {
+
+    // let storeSettings = this.props.store.settings;
+    // storeSettings.startRecord(true);
   }
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    console.log(this.props)
+    // if (this.props.visible !== nextProps.visible) {
+    //   let storeRecord = this.props.store.record;
+    //   this.setState({
+    //     recordVisible: true,
+    //   });
+    // }
+    // this.setState({
+    //   recordVisible: true,
+    // });
+    // this.setState({
+    //       recordVisible: true,
+    //     });
   }
 
   recordClose = () => {
@@ -60,6 +77,8 @@ class Record extends React.Component {
     const clientData = this.props.store.client;
     const client = clientData.clientData;
     const recordStore = this.props.store.record;
+    //this.bucket = "urtc-test";
+    //this.region = "cn-bj";
     client.startRecord(
       {
         bucket: recordConfig.bucket,
@@ -76,7 +95,7 @@ class Record extends React.Component {
       function (e, d) {
         console.log(e, d);
         if (!e) {
-          
+
           recordStore.setUrl(
             `http://urtc-test.cn-bj.ufileos.com/${d.FileName}.mp4`
           );
@@ -85,6 +104,10 @@ class Record extends React.Component {
       }
     );
     this.props.close(false);
+    // this.setState({
+    //   recordVisible: false,
+    // });
+    // recordStore.recordStart(false);
   }
   alllayoutChange(e) {
     this.setState({
@@ -165,18 +188,18 @@ class Record extends React.Component {
         label: "左上",
         value: "left-top",
       },
-      {
-        label: "左下",
-        value: "left-bottom",
-      },
-      {
-        label: "右上",
-        value: "right-top",
-      },
-      {
-        label: "右下",
-        value: "right-bottom",
-      },
+      // {
+      //   label: "左下",
+      //   value: "left-bottom",
+      // },
+      // {
+      //   label: "右上",
+      //   value: "right-top",
+      // },
+      // {
+      //   label: "右下",
+      //   value: "right-bottom",
+      // },
     ];
     return (
       <Modal

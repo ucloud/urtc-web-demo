@@ -105,7 +105,6 @@ class ClassHeader extends React.Component {
   }
 
   getNetwork = () => {
-    console.log("???start");
     this.Client.on("network-quality", (Stats) => {
       if (Stats.uplink) {
         this.setState({

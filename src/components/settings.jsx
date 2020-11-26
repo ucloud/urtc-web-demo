@@ -38,6 +38,9 @@ class Settings extends React.Component {
         videoCodec: "vp8", //视频编码
         AppKey: config.AppKey, //AppKey
         AppId: config.AppId, //AppId
+        apiLink: '',
+        logLink: '',
+        signalLink: ''
       },
       videoInputList: [],
       audioInputList: [],
@@ -60,6 +63,9 @@ class Settings extends React.Component {
     this.videoCodecChange = this.videoCodecChange.bind(this);
     this.AppKeyChange = this.AppKeyChange.bind(this);
     this.AppIdChange = this.AppIdChange.bind(this);
+    this.apiLinkChange = this.apiLinkChange.bind(this);
+    this.logLinkChange = this.logLinkChange.bind(this);
+    this.signalLinkChange = this.signalLinkChange.bind(this);
   }
   componentDidMount() {
     this.getDeviceData();
@@ -245,7 +251,30 @@ class Settings extends React.Component {
       setVisible: false,
     });
   }
-
+  apiLinkChange(e) {
+    const initData = this.state.initData;
+    let storeSettings = this.props.store.settings;
+    storeSettings.setParamKey("apiLink", e.target.value);
+    this.setState({
+      initData: { ...initData, apiLink: e.target.value },
+    });
+  }
+  logLinkChange(e) {
+    const initData = this.state.initData;
+    let storeSettings = this.props.store.settings;
+    storeSettings.setParamKey("logLink", e.target.value);
+    this.setState({
+      initData: { ...initData, logLink: e.target.value },
+    });
+  }
+  signalLinkChange(e) {
+    const initData = this.state.initData;
+    let storeSettings = this.props.store.settings;
+    storeSettings.setParamKey("signalLink", e.target.value);
+    this.setState({
+      initData: { ...initData, signalLink: e.target.value },
+    });
+  }
   render() {
     const {
       videoInputList,
@@ -257,6 +286,7 @@ class Settings extends React.Component {
       AppKey,
       setVisible,
       isPhone,
+      signalLink
     } = this.state;
     // console.log(this.props.store.settings.roomType)
     // const { settings,Settings } = this.props.store;
@@ -389,6 +419,17 @@ class Settings extends React.Component {
               type="password"
             />
           </Item>
+          <Item label="私有部署地址：" {...itemLayout}>
+            <Input placeholder="例如：wss://domain:5005" style={{ width: '200px' }} value={signalLink} onChange={this.signalLinkChange} />
+          </Item>
+          {/* <Group title="">
+            <Item label="房间地址" {...itemLayout}>
+                <Input placeholder="例如：wss://domain:5005" style={{width:'200px'}} value={apiLink} onChange={this.apiLinkChange} />
+            </Item>
+            <Item label="日志地址" {...itemLayout}>
+                <Input style={{width:'200px'}} value={logLink} onChange={this.logLinkChange} />
+            </Item>
+        </Group> */}
         </Form>
       </Modal>
     );

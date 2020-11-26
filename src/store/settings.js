@@ -22,6 +22,10 @@ class Settings {
   @observable AppId = config.AppId; //AppID
   @observable setVisible = false;
   @observable desktopProfile = "1280*720"; //分享桌面分辨率
+  @observable apiLink = "";
+  @observable logLink = "";
+  @observable signalLink = "";
+  
 
   @action
   settingsData(obj) {
@@ -37,6 +41,9 @@ class Settings {
     this.AppId = obj.AppId;
     this.userId = obj.userId;
     this.desktopProfile = obj.desktopProfile;
+    this.apiLink = obj.apiLink;
+    this.logLink = obj.logLink;
+    this.signalLink = obj.signalLink;
   }
 
   settingsActive(e) {
@@ -62,6 +69,9 @@ class Settings {
       AppId: this.AppId,
       userId: this.userId,
       desktopProfile: this.desktopProfile,
+      apiLink : this.apiLink,
+      logLink : this.logLink,
+      signalLink : this.signalLink
     };
     setCookie("settingParam", JSON.stringify(settingParam));
     this.roomId = obj.roomId;

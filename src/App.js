@@ -4,7 +4,6 @@ import "./App.css";
 import Login from "./pages/home";
 // import ClassRoom from "./pages/classRoom";
 import ClassRoom from "./pages/classRoom.jsx";
-
 function App() {
   return (
     <div className="App">
