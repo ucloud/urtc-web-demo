@@ -11,14 +11,7 @@ import ClassHeader from "../components/header/new";
 import ClassVideoWrapper from "../container/classVideoWrapper/index";
 import { getCookie } from "../util/cookie";
 
-if (process.env.REACT_APP_ENV === "pre") {
-  // pre 环境中使用未发布的 sdk，用于测试 sdk 的新功能
-  console.log("set pre.urtc", process.env);
-  // sdk.setServers({
-  //   api: "https://pre.urtc.com.cn",
-  //   log: "https://logpre.urtc.com.cn",
-  // });
-}
+
 @inject("store")
 @observer
 class ClassRoom extends React.Component {
@@ -87,14 +80,7 @@ class ClassRoom extends React.Component {
       userName: storeData.userName,
     });
     console.log('sss', storeData)
-    if (process.env.REACT_APP_ENV !== "pre" && signalLink !== ''){
-      sdk.setServers({
-        // api: storeData.apiLink,   // api 为 URTC 房间服务的访问地址
-        // log: storeData.logLink, // log 为 URTC 日志服务的访问地址
-        signal: signalLink, //storeData.signalLink // signal 为 URTC 信令服务的访问地址
-      })
-    }
-    
+
     let token = sdk.generateToken(AppId, AppKey, roomId, userId);
     this.Client = new Client(AppId, token, {
       type: storeData.roomType,
