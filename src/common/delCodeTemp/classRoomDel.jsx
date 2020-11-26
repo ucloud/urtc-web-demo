@@ -13,14 +13,6 @@ import ClassVideoWrapper from "../../container/classVideoWrapper/index";
 import { getCookie } from "../../util/cookie";
 const { isSupportWebRTC } = sdk;
 
-if (process.env.REACT_APP_ENV === "pre") {
-  // pre 环境中使用未发布的 sdk，用于测试 sdk 的新功能
-  console.log("set pre.urtc", process.env);
-  // sdk.setServers({
-  //   api: "https://pre.urtc.com.cn",
-  //   log: "https://logpre.urtc.com.cn",
-  // });
-}
 @inject("store")
 @observer
 class ClassRoom extends React.Component {
