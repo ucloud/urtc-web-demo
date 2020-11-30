@@ -17,4 +17,5 @@ yarn build
 
 #配置文件
 > 配置AppId和AppKey文件路径：/src/config/index.js
+
 > 配置录制bucket和region文件路径：/src/config/record.js
