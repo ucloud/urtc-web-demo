@@ -334,7 +334,7 @@ class ClassFooter extends React.Component {
       );
       this.Client.on("record-notify", (MixNotification) => {
         console.log(MixNotification, "MixNotification");
-        if (MixNotification.code === "0") {
+        if (MixNotification.code === "0"||MixNotification.code === "24151") {
           this.setState({
             videoRecord: true,
           });
