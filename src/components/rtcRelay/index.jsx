@@ -36,11 +36,11 @@ class RtcRelay extends React.Component {
 
   state = {
     relayLoading: false,
-    relayFlag: false,
-    url: "",
-    defaultUrl: "",
-    playUrl: "",
-    isPhone: !isPC(),
+    relayFlag   : false,
+    url         : "",
+    defaultUrl  : "",
+    playUrl     : "",
+    isPhone     : !isPC(),
   };
 
   componentDidMount() {}

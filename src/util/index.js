@@ -64,10 +64,45 @@ function isWeChat() {
   }
 }
 
+function isIOS(){
+  var u = navigator.userAgent;
+  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+  return isiOS;
+}
+
 function isSafari() {
   return (
     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
   );
 }
+function openFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.msRequestFullscreen){
+    element.msRequestFullscreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullScreen();
+  }
+}
 
-export { randNum, copy, isPC, objectToParamString, isWeChat, isSafari };
+function isFirefox(){
+  return navigator.userAgent.indexOf("Firefox")>0
+}
+
+//退出全屏方法
+function exitFullScreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.msExitFullscreen) {
+    document.msExiFullscreen();
+  } else if (document.webkitCancelFullScreen) {
+    document.webkitCancelFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    document.webkitExitFullscreen();
+  }
+}
+export { randNum, copy, isPC, objectToParamString, isWeChat, isSafari,exitFullScreen,openFullscreen,isIOS,isFirefox };

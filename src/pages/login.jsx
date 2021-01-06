@@ -12,14 +12,14 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      setVisible: false,
-      roomIdValue: "",
+      loading       : false,
+      setVisible    : false,
+      roomIdValue   : "",
       testingVisible: false,
     };
-    this.joinIn = this.joinIn.bind(this);
+    this.joinIn  = this.joinIn.bind(this);
     this.setting = this.setting.bind(this);
-    this.roomId = this.roomId.bind(this);
+    this.roomId  = this.roomId.bind(this);
   }
 
   componentDidMount() {
@@ -81,8 +81,8 @@ class Login extends React.Component {
               设置
             </button>
             <button
-              className="detecting"
-              onClick={this.toggleTesting.bind(this, true)}
+              className = "detecting"
+              onClick   = {this.toggleTesting.bind(this, true)}
             >
               检测
             </button>
@@ -91,8 +91,8 @@ class Login extends React.Component {
         <Settings visible={setVisible} />
         {testingVisible && (
           <Testing
-            show={testingVisible}
-            close={this.toggleTesting.bind(this, false)}
+            show  = {testingVisible}
+            close = {this.toggleTesting.bind(this, false)}
           />
         )}
       </div>

@@ -18,8 +18,8 @@ const { isSupportWebRTC } = SDK;
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    let storeSettings = this.props.store.settings;
-    const query = Querystringify.parse(props.location.search);
+    let   storeSettings = this.props.store.settings;
+    const query         = Querystringify.parse(props.location.search);
     console.log("query", query);
     const { roomId = "", roomType = "rtc" } = query;
     if (roomId) {
@@ -38,12 +38,12 @@ class Login extends React.Component {
     }
 
     this.state = {
-      loading: false,
-      setVisible: true,
-      roomIdValue: roomId,
+      loading       : false,
+      setVisible    : true,
+      roomIdValue   : roomId,
       testingVisible: false,
-      isPhone: !isPC(),
-      supportRTC: isSupportWebRTC(),
+      isPhone       : !isPC(),
+      supportRTC    : isSupportWebRTC(),
     };
   }
 

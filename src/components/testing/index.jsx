@@ -305,118 +305,123 @@ class Testing extends React.Component {
     // const {} = this.props.store;
     console.log(statusMap);
     return (
-      <Modal
-        visible={show}
-        title={"检测"}
-        size="md"
-        // width={560}
-        onClose={this.closeModal}
-        afterClose={this.destroyAll}
-        footer={null}
-        destroyOnClose={false}
-      >
-        {rtcSupportFlag && videoDeviceList.length ? (
-          <StepWrapper>
-            <Steps
-              steps={steps}
-              current={steps[stepCurrent].key}
-              status={"current"}
-            />
-            {stepCurrent === 0 && (
-              <CameraTest
-                client={this.client}
-                list={videoDeviceList}
-                onOk={this.testSuc.bind(this, "camera")}
-                onCancel={this.testFail.bind(this, "camera")}
-              />
-            )}
-
-            {stepCurrent === 1 && (
-              <SpeakerTest
-                client={this.client}
-                list={audioOutputDeviceList}
-                onOk={this.testSuc.bind(this, "speaker")}
-                onCancel={this.testFail.bind(this, "speaker")}
-              />
-            )}
-            {stepCurrent === 2 && (
-              <MicTest
-                client={this.client}
-                list={audioInputDeviceList}
-                onOk={this.testSuc.bind(this, "mic")}
-                onCancel={this.testFail.bind(this, "mic")}
-              />
-            )}
-            {stepCurrent === 3 && (
-              <EndWrapper>
-                <div className="content">
-                  <Row gutter={0}>
-                    <Col offset={2} span={4}>
-                      <div className="left">检测项目</div>
-                    </Col>
-                    <Col span={4}>
-                      <div className="right">检测结果</div>
-                    </Col>
-                  </Row>
-                  <Row gutter={0}>
-                    <Col offset={2} span={4}>
-                      <div className="left">摄像头</div>
-                    </Col>
-                    <Col span={4}>
-                      <div className="right">
-                        {statusMap.camera ? (
-                          <p>正常</p>
-                        ) : (
-                            <p className="error">异常</p>
-                          )}
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row gutter={0}>
-                    <Col offset={2} span={4}>
-                      <div className="left">扬声器</div>
-                    </Col>
-                    <Col span={4}>
-                      <div className="right">
-                        {statusMap.speaker ? (
-                          <p>正常</p>
-                        ) : (
-                            <p className="error">异常</p>
-                          )}
-                      </div>
-                    </Col>
-                  </Row>
-
-                  <Row gutter={0}>
-                    <Col offset={2} span={4}>
-                      <div className="left">麦克风</div>
-                    </Col>
-                    <Col span={4}>
-                      <div className="right">
-                        {statusMap.mic ? (
-                          <p>正常</p>
-                        ) : (
-                            <p className="error">异常</p>
-                          )}
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
-                {!statusMap.mic && (
-                  <p className="errorInfo">当前您的麦克风异常，无法进入直播</p>
+      <div>
+        {show?
+            <Modal
+            visible={show}
+            title={"检测"}
+            size="md"
+            // width={560}
+            onClose={this.closeModal}
+            afterClose={this.destroyAll}
+            footer={null}
+            destroyOnClose={false}
+          >
+            {rtcSupportFlag && videoDeviceList.length ? (
+              <StepWrapper>
+                <Steps
+                  steps={steps}
+                  current={steps[stepCurrent].key}
+                  status={"current"}
+                />
+                {stepCurrent === 0 && (
+                  <CameraTest
+                    client={this.client}
+                    list={videoDeviceList}
+                    onOk={this.testSuc.bind(this, "camera")}
+                    onCancel={this.testFail.bind(this, "camera")}
+                  />
                 )}
-                {this.renderBtn()}
-              </EndWrapper>
-            )}
-          </StepWrapper>
-        ) : (
-            <ErrorWrapper>
-              <Notice closable={false} styleType={"error"}>
-                {errorInfo}
-              </Notice>
-            </ErrorWrapper>
-          )}
-      </Modal>
+    
+                {stepCurrent === 1 && (
+                  <SpeakerTest
+                    client={this.client}
+                    list={audioOutputDeviceList}
+                    onOk={this.testSuc.bind(this, "speaker")}
+                    onCancel={this.testFail.bind(this, "speaker")}
+                  />
+                )}
+                {stepCurrent === 2 && (
+                  <MicTest
+                    client={this.client}
+                    list={audioInputDeviceList}
+                    onOk={this.testSuc.bind(this, "mic")}
+                    onCancel={this.testFail.bind(this, "mic")}
+                  />
+                )}
+                {stepCurrent === 3 && (
+                  <EndWrapper>
+                    <div className="content">
+                      <Row gutter={0}>
+                        <Col offset={2} span={4}>
+                          <div className="left">检测项目</div>
+                        </Col>
+                        <Col span={4}>
+                          <div className="right">检测结果</div>
+                        </Col>
+                      </Row>
+                      <Row gutter={0}>
+                        <Col offset={2} span={4}>
+                          <div className="left">摄像头</div>
+                        </Col>
+                        <Col span={4}>
+                          <div className="right">
+                            {statusMap.camera ? (
+                              <p>正常</p>
+                            ) : (
+                                <p className="error">异常</p>
+                              )}
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row gutter={0}>
+                        <Col offset={2} span={4}>
+                          <div className="left">扬声器</div>
+                        </Col>
+                        <Col span={4}>
+                          <div className="right">
+                            {statusMap.speaker ? (
+                              <p>正常</p>
+                            ) : (
+                                <p className="error">异常</p>
+                              )}
+                          </div>
+                        </Col>
+                      </Row>
+    
+                      <Row gutter={0}>
+                        <Col offset={2} span={4}>
+                          <div className="left">麦克风</div>
+                        </Col>
+                        <Col span={4}>
+                          <div className="right">
+                            {statusMap.mic ? (
+                              <p>正常</p>
+                            ) : (
+                                <p className="error">异常</p>
+                              )}
+                          </div>
+                        </Col>
+                      </Row>
+                    </div>
+                    {!statusMap.mic && (
+                      <p className="errorInfo">当前您的麦克风异常，无法进入直播</p>
+                    )}
+                    {this.renderBtn()}
+                  </EndWrapper>
+                )}
+              </StepWrapper>
+            ) : (
+                <ErrorWrapper>
+                  <Notice closable={false} styleType={"error"}>
+                    {errorInfo}
+                  </Notice>
+                </ErrorWrapper>
+              )}
+          </Modal>
+        :null
+      }
+      </div>
     );
   }
 }

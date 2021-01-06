@@ -56,22 +56,22 @@ class Settings {
 
   joinRoom(obj) {
     let settingParam = {
-      roomId: obj.roomId,
-      roomType: this.roomType,
-      userRole: this.userRole,
-      userName: this.userName,
-      videoInput: this.videoInput,
-      audioInput: this.audioInput,
-      audioOutput: this.audioOutput,
-      videoProlie: this.videoProlie,
-      videoCodec: this.videoCodec,
-      AppKey: this.AppKey,
-      AppId: this.AppId,
-      userId: this.userId,
-      desktopProfile: this.desktopProfile,
-      apiLink : this.apiLink,
-      logLink : this.logLink,
-      signalLink : this.signalLink
+      "roomId": obj.roomId,
+      "roomType": this.roomType,
+      "userRole": this.userRole,
+      "userName": this.userName,
+      "videoInput": this.videoInput,
+      "audioInput": this.audioInput,
+      "audioOutput": this.audioOutput,
+      "videoProlie": this.videoProlie,
+      "videoCodec": this.videoCodec,
+      "AppKey": this.AppKey,
+      "AppId": this.AppId,
+      "userId": this.userId,
+      "desktopProfile": this.desktopProfile,
+      "apiLink" : this.apiLink,
+      "logLink" : this.logLink,
+      "signalLink" : this.signalLink
     };
     setCookie("settingParam", JSON.stringify(settingParam));
     this.roomId = obj.roomId;

@@ -5,13 +5,23 @@ import { observer, inject } from "mobx-react";
 import "./classRoom.css";
 import "../common/ucloudicons/dist/css/icon.min.css";
 import sdk, { Client } from "urtc-sdk";
-import { Message } from "@ucloud-fe/react-components";
+import { Message, Icon } from "@ucloud-fe/react-components";
 import ClassFooter from "../components/footer/index";
 import ClassHeader from "../components/header/new";
 import ClassVideoWrapper from "../container/classVideoWrapper/index";
+import SafariHelpModal from '../container/iosSafariModal/index'
 import { getCookie } from "../util/cookie";
-
-
+import { openFullscreen, isPC, isSafari, isIOS, } from "../util/index"
+import { findDOMNode } from "react-dom";
+console.log('process.env.REACT_APP_ENV', process.env.REACT_APP_ENV)
+if (process.env.REACT_APP_ENV === "pre") {
+  // pre 环境中使用未发布的 sdk，用于测试 sdk 的新功能
+  console.log("set pre.urtc", process.env);
+  sdk.setServers({
+    api: "https://pre.urtc.com.cn",
+    log: "https://logpre.urtc.com.cn",
+  });
+}
 @inject("store")
 @observer
 class ClassRoom extends React.Component {
@@ -42,15 +52,21 @@ class ClassRoom extends React.Component {
       mainStream: [],
       remoteStreams: [],
       lineFlag: true,
-
+      isSafari: isSafari(),
+      playBtnShow: isIOS() && isSafari() ,
+      shareScreen: false,
+      safariShow: false,
     };
+
     this.videoChange = this.videoChange.bind(this);
   }
+
   componentDidMount() {
     if (getCookie("settingParam") == undefined) {
       this.props.history.push("/");
       return
     }
+    console.log(getCookie("settingParam"))
     let param = JSON.parse(getCookie("settingParam"));
     this.props.store.settings.settingsData(param);
     this.props.store.settings.joinRoom({
@@ -64,6 +80,7 @@ class ClassRoom extends React.Component {
       this.initURtc(locationState);
     }
   }
+
   initURtc(data) {
     this.setState({
       paramsData: data,
@@ -80,6 +97,13 @@ class ClassRoom extends React.Component {
       userName: storeData.userName,
     });
     console.log('sss', storeData)
+    if (process.env.REACT_APP_ENV !== "pre" && signalLink !== '') {
+      sdk.setServers({
+        // api: storeData.apiLink,   // api 为 URC 房间服务的访问地址
+        // log: storeData.logLink, // log 为 URTC 日志服务的访问地址
+        signal: signalLink, //storeData.signalLink // signal 为 URTC 信令服务的访问地址
+      })
+    }
 
     let token = sdk.generateToken(AppId, AppKey, roomId, userId);
     this.Client = new Client(AppId, token, {
@@ -88,6 +112,7 @@ class ClassRoom extends React.Component {
       codec: storeData.videoCodec,
     });
     storeClient.initClient(this.Client);
+    // this.Client.enableAudioVolumeIndicator(400);
     this.Client.joinRoom(roomId, userId, (e, s) => {
       Message.config({
         duration: 3000,
@@ -98,9 +123,11 @@ class ClassRoom extends React.Component {
       });
 
       if (storeData.userRole !== "pull") {
-        this.publish()
+        this.publish(); 
       }
+
     });
+    
     this.Client.on("stream-published", (stream) => {
       const { allStream = [] } = this.state;
       allStream.push(stream);
@@ -136,6 +163,7 @@ class ClassRoom extends React.Component {
         this.setState(
           {
             mainSid: nextId,
+            shareScreen: true,
           },
           () => {
             this.getLayoutStream(allStream);
@@ -146,33 +174,7 @@ class ClassRoom extends React.Component {
 
     this.Client.on("screenshare-stopped", (stream) => {
       console.log("screenshare-stopped", stream);
-      this.Client.unpublish(stream.sid, (e) => {
-        const { allStream = [] } = this.state;
-        let arr = this.filterStream(allStream, stream.sid);
-        if (stream.sid == this.state.mailSid) {
-          let targetId = localStream ? localStream.sid : (arr.length ? arr[0].sid : null)
-          this.setState(
-            {
-              allStream: arr,
-              mainSid: targetId
-            },
-            () => {
-              this.getLayoutStream(arr);
-            }
-          )
-          return
-        } else {
-          this.setState(
-            {
-              allStream: arr,
-            },
-            () => {
-              this.getLayoutStream(arr);
-            }
-          );
-          return
-        }
-      });
+      this.unShareScreen(stream)
     });
 
     this.Client.on("stream-reconnected", (streams) => {
@@ -251,6 +253,7 @@ class ClassRoom extends React.Component {
     });
 
     this.Client.on("volume-indicator", (e) => {
+      // console.log('远端音量：', e)
       this.setState({
         remoteVolumeData: e,
         allStream,
@@ -338,6 +341,40 @@ class ClassRoom extends React.Component {
     });
   }
 
+  unShareScreen = (stream) => {
+    this.setState({
+      shareScreen: false
+    })
+
+    this.Client.unpublish(stream.sid, (e) => {
+      const { allStream = [] } = this.state;
+      let arr = this.filterStream(allStream, stream.sid);
+      if (stream.sid == this.state.mailSid) {
+        let targetId = localStream ? localStream.sid : (arr.length ? arr[0].sid : null)
+        this.setState(
+          {
+            allStream: arr,
+            mainSid: targetId
+          },
+          () => {
+            this.getLayoutStream(arr);
+          }
+        )
+        return
+      } else {
+        this.setState(
+          {
+            allStream: arr,
+          },
+          () => {
+            this.getLayoutStream(arr);
+          }
+        );
+        return
+      }
+    });
+  }
+
   startRelay = (flag) => {
     this.setState({
       relayShow: flag,
@@ -346,23 +383,33 @@ class ClassRoom extends React.Component {
 
   publish = () => {
     const storeData = this.props.store.settings;
-    this.Client.publish(
-      {
-        audio: true,
-        video: true,
-        cameraId: storeData.videoInput,
-      },
-      function () {
-        Message.message(<div>没有推流权限</div>, undefined, () =>
-          console.log("onClose")
+    sdk.deviceDetection({
+      audio:true,
+      video:true
+    },(Result)=>{
+      if(Result.audio === false && Result.video === false ){
+        Message.error("没有可用音视频设备");
+      }else{
+        this.Client.publish(
+          {
+            audio: Result.audio,
+            video: Result.video,
+            cameraId: storeData.videoInput,
+          },
+          function () {
+            Message.message(<div>没有推流权限</div>, undefined, () =>
+              console.log("onClose")
+            );
+          }
         );
       }
-    );
+    })
+    
   }
 
   //下麦操作
   unPublish = () => {
-    let { lineFlag } = this.state;
+    let { lineFlag, playBtnShow } = this.state;
     if (lineFlag) {
       this.Client.unpublish((stream) => {
         Message.success("下麦成功");
@@ -380,6 +427,18 @@ class ClassRoom extends React.Component {
             this.props.store.common.setVideoMuteStats(false);
             this.getLayoutStream(allStream);
           });
+        }
+
+        //ios自带浏览重新播放
+        if(playBtnShow){  
+          allStream
+        }
+
+        //ios safari
+        if(isIOS() && isSafari()){
+          this.setState({
+            safariShow:true
+          })
         }
       });
     } else {
@@ -401,6 +460,15 @@ class ClassRoom extends React.Component {
       }
     );
   }
+
+  ref = (player) => {
+    this.teachPlayer = player;
+  };
+
+  fullscreen = () => {
+    openFullscreen(findDOMNode(this.teachPlayer));
+  };
+
 
   // arr 为最新全部流数组, refreshFlag 为是否stop or play全部视频
   getLayoutStream = (arr = [], refreshFlag = true) => {
@@ -459,26 +527,17 @@ class ClassRoom extends React.Component {
     let { allStream = [] } = this.state;
     for (let index = 0; index < allStream.length; index++) {
       const id = allStream[index].sid;
-      if (allStream[index].mediaType === "screen") {
-        this.Client.play(
-          { streamId: id, container: id, fit: "cover" },
-          (err) => {
-            if (!err) {
-              reject(console.log("播放失败", err, prevId));
-            }
-          }
-        );
-      } else {
+      // if (allStream[index].mediaType === "screen") {
         this.Client.play(
           { streamId: id, container: id, fit: "contain" },
           (err) => {
             if (!err) {
+              this.resume(id)
               reject(console.log("播放失败", err, prevId));
             }
           }
         );
-      }
-
+      // } 
     }
   };
 
@@ -498,6 +557,8 @@ class ClassRoom extends React.Component {
       remoteStreams,
       localCameraSid,
       lineFlag,
+      shareScreen,
+      safariShow,
     } = this.state;
     return (
       <div className="room_main">
@@ -516,10 +577,30 @@ class ClassRoom extends React.Component {
                     height: "100%",
                     width: "100%",
                   }}
+                  ref={this.ref}
                   key={index}
                 >
+                  {isPC() ? (
+                    <div
+                      style={{
+                        cursor: "pointer",
+                        position: "absolute",
+                        top: "15px",
+                        right: "25px",
+                        color: 'write',
+                        zIndex: '100'
+                      }}
+                      onClick={this.fullscreen}
+                    >
+                      <b>
+                        <Icon type="sidebar_web" />{" "}
+                      </b>
+                    </div>
+                  ) : null}
+
                   {stream.sid == localCameraSid ? (
                     <ClassVideoWrapper
+
                       stream={Object.assign({
                         ...stream,
                         muteVideo: this.props.store.common.localMuteVideo,
@@ -566,9 +647,17 @@ class ClassRoom extends React.Component {
           client={this.Client}
           paramsData={paramsData}
           sid={localStream && localStream.sid}
-
           unPublish={this.unPublish}
           lineFlag={lineFlag}
+          shareScreen={shareScreen}
+          unShareScreen={this.unShareScreen}
+          playStreams= {this.playStreams}
+        />
+
+        <SafariHelpModal
+            show={safariShow}
+            close={() => {this.setState({safariShow:false})}}
+            play={this.playStreams}
         />
       </div>
     );

@@ -71,11 +71,14 @@ class Settings extends React.Component {
     this.getDeviceData();
     this.getSupportProfile();
     this.getSupportedCodec();
+    const initData = this.state.initData;
+    this.setState({
+      signalLink: initData.signalLink
+    });
   }
   componentWillReceiveProps(nextProps) {
     let storeSettings = this.props.store.settings;
     const initData = this.state.initData;
-    console.log(storeSettings);
     this.setState({
       setVisible: storeSettings.setVisible,
       initData: { ...initData, userId: storeSettings.userId },
@@ -271,7 +274,9 @@ class Settings extends React.Component {
     const initData = this.state.initData;
     let storeSettings = this.props.store.settings;
     storeSettings.setParamKey("signalLink", e.target.value);
+    console.log(e.target.value)
     this.setState({
+      signalLink: e.target.value,
       initData: { ...initData, signalLink: e.target.value },
     });
   }
@@ -292,7 +297,7 @@ class Settings extends React.Component {
     // const { settings,Settings } = this.props.store;
     let { settings } = this.props.store;
     console.log("settings.videoInput", settings.videoInput);
-
+    //输出视频输入数据
     return (
       <Modal
         visible={setVisible}
