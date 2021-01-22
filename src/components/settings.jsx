@@ -93,9 +93,19 @@ class Settings extends React.Component {
     });
   }
   getSupportProfile() {
+    let profileNames = [];
+    sdk.getSupportProfileNames().map((e,v)=>{
+      profileNames.push(e);
+      if(e === '640*480_1'){
+        profileNames.push('1280*720(600k)')
+      }
+      return null
+
+    })
     this.setState({
-      videoProlieList: sdk.getSupportProfileNames(),
+      videoProlieList: profileNames,
     });
+
   }
   getDeviceData() {
     let _this = this;
@@ -144,7 +154,7 @@ class Settings extends React.Component {
         initData: { ...initData, userRole: "push-and-pull", roomType: e },
       });
       let storeSettings = this.props.store.settings;
-      storeSettings.setParamKey("userRole", "push-and-pull");
+      storeSettings.setParamKey("userRole", "push-an  d-pull");
       storeSettings.setParamKey("roomType", e);
     } else {
       let storeSettings = this.props.store.settings;
@@ -379,6 +389,7 @@ class Settings extends React.Component {
             <Select
               value={settings.videoProlie}
               onChange={this.videoProlieChange}
+              style={{'minWidth':'132px'}}
             >
               {videoProlieList.map((v, i) => (
                 <Option key={i} value={v}>
@@ -392,6 +403,7 @@ class Settings extends React.Component {
               <Select
                 value={settings.desktopProfile}
                 onChange={this.desktopProlieChange}
+                style={{'minWidth':'132px'}}
               >
                 {videoProlieList.map((v, i) => (
                   <Option key={i} value={v}>

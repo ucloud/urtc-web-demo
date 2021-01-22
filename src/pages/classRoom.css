@@ -99,7 +99,6 @@ li {
 
 .video-current video {
   border-radius: 1%;
-  max-height: 80%;
 }
 .video-item {
   position: relative;

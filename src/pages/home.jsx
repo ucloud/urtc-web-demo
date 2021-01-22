@@ -10,7 +10,7 @@ import { isPC, isSafari } from "../util/index";
 import { LoginWrapper } from './home.styles.jsx';
 import SDK from "urtc-sdk";
 import "./login.css";
-const { isSupportWebRTC } = SDK;
+const { isSupportWebRTC, getDevices } = SDK;
 
 
 @inject("store")
@@ -50,6 +50,10 @@ class Login extends React.Component {
   componentDidMount() {
     if (!this.state.supportRTC) {
       Message.error("当前浏览器不支持RTC推流，建议更换Safari 或 Chrome 重试");
+    }else{
+      getDevices((MediaDeviceInfos) => {
+        console.log("解决授权问题",MediaDeviceInfos)
+      })
     }
   }
   joinIn = () => {

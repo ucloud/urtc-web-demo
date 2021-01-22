@@ -13,7 +13,6 @@ import SafariHelpModal from '../container/iosSafariModal/index'
 import { getCookie } from "../util/cookie";
 import { openFullscreen, isPC, isSafari, isIOS, } from "../util/index"
 import { findDOMNode } from "react-dom";
-console.log('process.env.REACT_APP_ENV', process.env.REACT_APP_ENV)
 if (process.env.REACT_APP_ENV === "pre") {
   // pre 环境中使用未发布的 sdk，用于测试 sdk 的新功能
   console.log("set pre.urtc", process.env);
@@ -87,6 +86,7 @@ class ClassRoom extends React.Component {
     });
     const storeData = this.props.store.settings;
     const storeClient = this.props.store.client;
+
     let roomId = data.roomId;
     let userId = this.props.store.settings.userId || data.userId;
     const AppId = storeData.AppId;
@@ -118,9 +118,18 @@ class ClassRoom extends React.Component {
         duration: 3000,
         top: 20,
       });
-      this.Client.setVideoProfile({
-        profile: storeData.videoProlie,
-      });
+      if(storeData.videoProlie == '1280*720(600k)'){
+        this.Client.setVideoProfile({
+            width:1280, 
+            height:720,
+            framerate:15,
+            bitrate:600});
+      }else{
+        this.Client.setVideoProfile({
+          profile: storeData.videoProlie,
+        });
+      }
+      
 
       if (storeData.userRole !== "pull") {
         this.publish(); 

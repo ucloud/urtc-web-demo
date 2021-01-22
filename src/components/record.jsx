@@ -79,12 +79,23 @@ class Record extends React.Component {
     const recordStore = this.props.store.record;
     //this.bucket = "urtc-test";
     //this.region = "cn-bj";
+    let mainViewType = "camera"
+
+    client.getLocalStreams().map((e) => {
+      if(e.mediaType === "screen"){
+        mainViewType = "screen"
+      }
+    })
+    console.log("mainViewType", mainViewType)
+    
+
     client.startRecord(
       {
         bucket: recordConfig.bucket,
         region: recordConfig.region,
         layout: {
-          type: this.state.checkLayout
+          type: this.state.checkLayout,
+          mainViewType,
         },
         waterMark: {
           position: this.state.checkWatermarkPos,

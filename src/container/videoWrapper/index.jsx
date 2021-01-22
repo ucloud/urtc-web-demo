@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Message } from "@ucloud-fe/react-components";
 import { observer, inject } from "mobx-react";
 import ReactPlayer from "react-player";
+import { isIOS, } from "../../util/index"
 
 const Wrapper = styled.div`
   position: relative;
@@ -26,6 +27,7 @@ class VideoWrapper extends React.Component {
   state = {
     stream: null,
     previewId: null,
+    controlsStatus:false,
   };
 
   componentDidMount() {
@@ -77,8 +79,16 @@ class VideoWrapper extends React.Component {
     }
   }
 
+  changControlsStatus = () => {
+    if(isIOS()){
+      this.setState({
+        controlsStatus: true
+      })
+    }
+  }
+
   render() {
-    let { stream, previewId } = this.state;
+    let { stream, previewId,controlsStatus } = this.state;
     return (
       <Wrapper>
         <ReactPlayer
@@ -86,9 +96,16 @@ class VideoWrapper extends React.Component {
           width="100%"
           height="100%"
           url={stream && stream.mediaStream}
-          muted={true}
+          className="test"
           playing
+          controls ={ controlsStatus}
           playsinline
+          onError = { 
+            this.changControlsStatus
+          }
+          onEnablePIP= {(opt) => {
+            console.log('onEnablePIP',opt)
+          }}
         />
       </Wrapper>
     );
