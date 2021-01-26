@@ -7,7 +7,7 @@
  * @FilePath: /urtc-web-demo/README.md
 -->
 
-这是 https://web.urtc.com.cn/ demo的源码。
+本 demo 运行网址：https://web.urtc.com.cn/
 
 初始化项目
 #安装
