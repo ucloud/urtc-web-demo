@@ -9,7 +9,7 @@
 
 ## 1 描述
 
-[urtc-web](https://web.urtc.com.cn/)是UCloud推出的一款适用于全终端观看的实时音视频Demo，给用户提供案例源码，帮忙用户快速接入webrtc音视频业务。用户可通过电脑/手机H5/平板/微信/智能电视等平台，随时随地观看直播。支持高度定制以及二次开发。线上地址：[https://web.urtc.com.cn/](https://web.urtc.com.cn/)
+[urtc-web](https://web.urtc.com.cn)是UCloud推出的一款适用于全终端观看的实时音视频Demo，给用户提供案例源码，帮忙用户快速接入webrtc音视频业务。用户可通过电脑/手机H5/平板/微信/智能电视等平台，随时随地观看直播。支持高度定制以及二次开发。线上地址：[https://web.urtc.com.cn](https://web.urtc.com.cn)
 
 
 ## 2 功能列表
