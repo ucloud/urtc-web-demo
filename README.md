@@ -9,7 +9,8 @@
 
 ## 1 描述
 
-[urtc-web](https://web.urtc.com.cn)是UCloud推出的一款适用于全终端观看的实时音视频Demo，给用户提供案例源码，帮忙用户快速接入webrtc音视频业务。用户可通过电脑/手机H5/平板/微信/智能电视等平台，随时随地观看直播。支持高度定制以及二次开发。线上地址：[https://web.urtc.com.cn](https://web.urtc.com.cn)
+[urtc-web](https://web.urtc.com.cn)是UCloud推出的一款适用于全终端观看的实时音视频Demo，给用户提供案例源码，帮忙用户快速接入webrtc音视频业务。用户可通过电脑/手机H5/平板/微信/智能电视等平台，随时随地观看直播。支持高度定制以及二次开发。
+线上地址：[https://web.urtc.com.cn](https://web.urtc.com.cn) ，可以参照 **用户使用手册.pdf**了解各项功能。
 
 > 注：在[UCloud 控制台](https://passport.ucloud.cn/#login)， 创建URTC应用，得到 appId 和 appKey。每月10000分钟内免费，超过按照[实时计费方式](https://docs.ucloud.cn/urtc/price)。
 
@@ -89,6 +90,7 @@ npm install 或 yarn
 ```
 npm run start 或 yarn start
 ```
+启动成功后，可以参照 **用户使用手册.pdf**了解各项功能。
 
 #### 打包
 ```
