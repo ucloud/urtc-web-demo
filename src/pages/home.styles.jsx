@@ -19,7 +19,7 @@ const LoginWrapper = styled.div`
     color: #7a8baa;
     line-height: 20px;
     text-align: center;
-    padding-top: 77px;
+    padding-top: 60px;
   }
   .setting-content {
     display: inline-block;
@@ -61,9 +61,13 @@ const LoginWrapper = styled.div`
       padding: 44px 0 0 0;
       width: 224px;
       display: inline-block;
+      .checkbox-content{
+        padding: 5px 0 10px 0;
+        text-align:left;
+      }
       .btn-content {
         width: 100%;
-        padding: 24px 0 0 0;
+        padding: 4px 0 0 0;
         .btn {
           width: 100%;
           height: 40px;

@@ -44,7 +44,7 @@ function objectToParamString(paramObj) {
   Object.keys(paramObj) &&
     Object.keys(paramObj).forEach((key) => {
       let val = paramObj[key];
-      if (val.constructor === Array) {
+      if (Array.isArray(val)) {
         val.forEach((_val) => {
           paramList.push(key + "=" + _val);
         });
@@ -56,15 +56,22 @@ function objectToParamString(paramObj) {
 }
 
 function isWeChat() {
-  var ua = window.navigator.userAgent.toLowerCase();
-  if (ua.match(/MicroMessenger/i) === "micromessenger") {
+  // var ua = window.navigator.userAgent.toLowerCase();
+  // if (ua.match(/MicroMessenger/i) === "micromessenger") {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+  var ua = navigator.userAgent.toLowerCase();
+  var isWeixin = ua.indexOf("micromessenger") !== -1;
+  if (isWeixin) {
     return true;
   } else {
     return false;
   }
 }
 
-function isIOS(){
+function isIOS() {
   var u = navigator.userAgent;
   var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
   return isiOS;
@@ -76,19 +83,19 @@ function isSafari() {
   );
 }
 function openFullscreen(element) {
-  if(element.requestFullscreen) {
+  if (element.requestFullscreen) {
     element.requestFullscreen();
-  } else if(element.mozRequestFullScreen) {
+  } else if (element.mozRequestFullScreen) {
     element.mozRequestFullScreen();
-  } else if(element.msRequestFullscreen){
+  } else if (element.msRequestFullscreen) {
     element.msRequestFullscreen();
-  } else if(element.webkitRequestFullscreen) {
+  } else if (element.webkitRequestFullscreen) {
     element.webkitRequestFullScreen();
   }
 }
 
-function isFirefox(){
-  return navigator.userAgent.indexOf("Firefox")>0
+function isFirefox() {
+  return navigator.userAgent.indexOf("Firefox") > 0;
 }
 
 //退出全屏方法
@@ -105,4 +112,15 @@ function exitFullScreen() {
     document.webkitExitFullscreen();
   }
 }
-export { randNum, copy, isPC, objectToParamString, isWeChat, isSafari,exitFullScreen,openFullscreen,isIOS,isFirefox };
+export {
+  randNum,
+  copy,
+  isPC,
+  objectToParamString,
+  isWeChat,
+  isSafari,
+  exitFullScreen,
+  openFullscreen,
+  isIOS,
+  isFirefox,
+};

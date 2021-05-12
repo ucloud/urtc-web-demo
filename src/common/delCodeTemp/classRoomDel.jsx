@@ -2,8 +2,8 @@
 /* eslint-disable */
 import React from "react";
 import { observer, inject } from "mobx-react";
-import "./classRoom.css";
-import "../common/ucloudicons/dist/css/icon.min.css";
+import "../../pages/classRoom.css";
+import "../ucloudicons/dist/css/icon.min.css";
 import sdk, { Client } from "urtc-sdk";
 import { Message } from "@ucloud-fe/react-components";
 // import { copy } from "../util/index";

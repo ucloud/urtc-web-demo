@@ -4,6 +4,7 @@ import { observer, useLocalStore } from "mobx-react";
 import { settings } from "../../store/index"
 import { Network, Header, statusMap } from './new.styles.jsx' //样式组件以及配置字典
 import icon_duanwang from '../../common/image/duanwang.png'
+import { throwError } from "../../../node_modules/rxjs/index";
 /**
  * @param client sdk实例
  */
@@ -13,32 +14,45 @@ const ClassHeader = observer((props) => {
     const [uplink, setUplink] = useState("");
     const [upNum, setNum] = useState(0);
     const [linkColor, setLinkColor] = useState("#fff");
-    const [rtt, setRtt] = useState(0);
+    const [rtt, setRtt] = useState(-1);
     useEffect(() => {
-        if (props.client == null || !props.sid) return
+        if (props.client == null) return
         function getNetwork() {
+            let localStream = props.client.getLocalStreams()
+            let remoteStream = props.client.getRemoteStreams()
+            let type = "local"
+            let sid = null
+            if(localStream.length !== 0){
+                sid = localStream[0].sid
+            }else if(localStream.length === 0 && remoteStream.length !== 0){
+                type = "remote"
+                sid = remoteStream[0].sid
+            }
             props.client.on("network-quality", (Stats) => {
-                setNum(Stats.uplink)
-                if (Stats.uplink) {
+                if (type === "local") {
+                    setNum(Stats.uplink)
                     setUplink(statusMap[Stats.uplink].status)
                     setLinkColor(statusMap[Stats.uplink].color)
                 } else {
-                    setUplink(statusMap[Stats.default].status)
-                    setLinkColor(statusMap[Stats.default].color)
+                    setNum(Stats.downlink)
+                    setUplink(statusMap[Stats.downlink].status)
+                    setLinkColor(statusMap[Stats.downlink].color)
                 }
             });
             let timer = setInterval(() => {
                 props.client.getNetworkStats(
+                    sid,
                     (stats) => {
                         setRtt(stats.rtt)
                     },
                     (error) => {
                         clearInterval(timer);
-                        console.log(error);
+                        throwError(error)
                     }
                 );
             }, 200);
         }
+        
         getNetwork();
     });
     return (
@@ -54,14 +68,15 @@ const ClassHeader = observer((props) => {
             </div>
 
             <Network className="network">
-                {upNum !== "6" ?
+                {upNum !== "6" && rtt !== -1 ?
                     <div>
                         <Icon
                             style={{ color: linkColor }}
                             title={`网络状态：${uplink}`}
                             type="bar-graph"
                         />
-                        <span className="text">{`${rtt}ms`}</span>
+                        {rtt >= 0?(<span className="text">{`${rtt}ms`}</span>):null}
+                        {/* <span className="text">{`${rtt}ms`}</span> */}
                     </div>
                     :
                     <span className="disconnection">

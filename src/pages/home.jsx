@@ -1,6 +1,6 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
-import { Icon, Row, Col, Button, Message } from "@ucloud-fe/react-components";
+import { Icon, Row, Col, Button, Message, Checkbox } from "@ucloud-fe/react-components";
 import Settings from "../components/settings";
 import Testing from "../components/testing/index";
 import bgImg from "../common/image/com.png";
@@ -18,10 +18,11 @@ const { isSupportWebRTC, getDevices } = SDK;
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    let   storeSettings = this.props.store.settings;
-    const query         = Querystringify.parse(props.location.search);
+    let storeSettings = this.props.store.settings;
+    const query = Querystringify.parse(props.location.search);
     console.log("query", query);
-    const { roomId = "", roomType = "rtc" } = query;
+    const { roomId = "", roomType = "rtc", onlyAudio = false } = query;
+    storeSettings.setParamKey("onlyAudio", onlyAudio === "true");
     if (roomId) {
       storeSettings.joinRoom({
         roomId: roomId,
@@ -36,23 +37,23 @@ class Login extends React.Component {
     if (!isSupportWebRTC()) {
       storeSettings.setParamKey("userRole", "pull");
     }
-
     this.state = {
-      loading       : false,
-      setVisible    : true,
-      roomIdValue   : roomId,
+      loading: false,
+      setVisible: true,
+      roomIdValue: roomId,
       testingVisible: false,
-      isPhone       : !isPC(),
-      supportRTC    : isSupportWebRTC(),
+      isPhone: !isPC(),
+      supportRTC: isSupportWebRTC(),
+      onlyAudio: onlyAudio === "true",
     };
   }
 
   componentDidMount() {
     if (!this.state.supportRTC) {
       Message.error("当前浏览器不支持RTC推流，建议更换Safari 或 Chrome 重试");
-    }else{
+    } else {
       getDevices((MediaDeviceInfos) => {
-        console.log("解决授权问题",MediaDeviceInfos)
+        //console.log("解决授权问题", MediaDeviceInfos)
       })
     }
   }
@@ -90,7 +91,7 @@ class Login extends React.Component {
   setClose() {
     this.setState({
       setVisible: false,
-      
+
     });
   }
 
@@ -100,8 +101,15 @@ class Login extends React.Component {
     });
   };
 
+  changeOnlyAudio = (e) => {
+    this.props.store.settings.setParamKey("onlyAudio", e);
+    this.setState({
+      onlyAudio: e
+    })
+  }
+
   render() {
-    const { setVisible, testingVisible, roomIdValue, isPhone } = this.state;
+    const { setVisible, testingVisible, roomIdValue, isPhone, onlyAudio } = this.state;
     console.log("isSupportWebRTC", isSupportWebRTC());
     return (
       <LoginWrapper
@@ -162,6 +170,11 @@ class Login extends React.Component {
                 className="room-id"
                 onChange={this.roomId}
               />
+            </div>
+            <div className="checkbox-content">
+              <Checkbox checked={onlyAudio}
+                onChange={this.changeOnlyAudio}
+              > 纯音频会议</Checkbox>
             </div>
             <div className="btn-content">
               <Button

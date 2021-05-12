@@ -6,7 +6,7 @@ const Text = styled.div`
   position: relative;
   display: inline-block;
   padding: 8px 12px;
-  line-height:18px;
+  line-height: 18px;
 `;
 
 /**
@@ -21,27 +21,25 @@ class SafariHelpModal extends React.Component {
   };
 
   handleOk = () => {
-      if(this.props.play){
-        this.props.play()
-        this.props.close()
-      }else{
-          throw new Error("play is undefined")
-      } 
-  }
+    if (this.props.play) {
+      this.props.play();
+      this.props.close();
+    } else {
+      throw new Error("play is undefined");
+    }
+  };
 
   render() {
-      const {show} = this.props;
+    const { show } = this.props;
     return (
-        <Modal
+      <Modal
         visible={show}
         size={"sm"}
         onOk={this.handleOk}
         onClose={this.props.close}
         title="播放视频"
-      >   
-        <Text>
-        {'由于ios下的safari存在限制，需手动播放，请点击确定恢复播放'}
-        </Text>
+      >
+        <Text>{"由于ios存在限制，需手动播放，请点击确定恢复播放"}</Text>
       </Modal>
     );
   }

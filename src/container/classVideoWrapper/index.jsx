@@ -42,7 +42,11 @@ class ClassVideoWrapper extends React.Component {
       // this.forceUpdate();
     }
   }
-
+  muteScreenAudio=()=>{
+    console.log(this.props)
+    this.Client = this.props.store.client.clientData;
+    this.Client.muteAudio(this.props.stream.sid);
+  }
   renderVideoWrapper = (stream) => {
     return (
       <div style={{ height: "100%", width: "100%" }}>
@@ -57,17 +61,21 @@ class ClassVideoWrapper extends React.Component {
             playsinline
           />
         ) : ( */}
+
         <div style={{ height: "100%", width: "100%" }} id={stream.sid}></div>
         {/* )} */}
+        <div>
+
+        </div>
       </div>
     );
   };
 
   render() {
     let { stream } = this.props;
-    console.log("566", !stream);
     return (
       <Wrapper>
+        <div style={{'display':'none'}} onClick={this.muteScreenAudio}>关闭分享音频</div>
         {!stream ? null : (
           <div style={{ width: "100%", height: "100%" }}>
             <div
@@ -90,6 +98,7 @@ class ClassVideoWrapper extends React.Component {
             </div>
           </div>
         )}
+        
         <VideoStats stream={stream} />
       </Wrapper>
     );

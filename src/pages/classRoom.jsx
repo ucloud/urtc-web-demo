@@ -2,25 +2,21 @@
 /* eslint-disable */
 import React from "react";
 import { observer, inject } from "mobx-react";
+import ReactPlayer from "react-player";
 import "./classRoom.css";
 import "../common/ucloudicons/dist/css/icon.min.css";
 import sdk, { Client } from "urtc-sdk";
-import { Message, Icon } from "@ucloud-fe/react-components";
+import { Message } from "@ucloud-fe/react-components";
+// import { copy } from "../util/index";
 import ClassFooter from "../components/footer/index";
-import ClassHeader from "../components/header/new";
-import ClassVideoWrapper from "../container/classVideoWrapper/index";
-import SafariHelpModal from '../container/iosSafariModal/index'
+import ClassHeader from "../components/header/index";
+
+import SafariHelpModal from "../container/iosSafariModal/index";
 import { getCookie } from "../util/cookie";
-import { openFullscreen, isPC, isSafari, isIOS, } from "../util/index"
+import { openFullscreen, isPC, isSafari, isIOS, isWeChat } from "../util/index";
 import { findDOMNode } from "react-dom";
-if (process.env.REACT_APP_ENV === "pre") {
-  // pre 环境中使用未发布的 sdk，用于测试 sdk 的新功能
-  console.log("set pre.urtc", process.env);
-  sdk.setServers({
-    api: "https://pre.urtc.com.cn",
-    log: "https://logpre.urtc.com.cn",
-  });
-}
+
+
 @inject("store")
 @observer
 class ClassRoom extends React.Component {
@@ -29,8 +25,8 @@ class ClassRoom extends React.Component {
     this.state = {
       loading: false,
       localStream: null,
-      localCameraSid: "0",
       screenStream: null,
+      remoteStreams: [],
       videoMute: false,
       audioMute: false,
       volumeMute: false,
@@ -38,6 +34,7 @@ class ClassRoom extends React.Component {
       uplink: "",
       downlink: "",
       linkColor: "#fff",
+      // setVolumeDisplay: false,
       relayShow: false,
       paramsData: null,
       roomId: "",
@@ -46,32 +43,31 @@ class ClassRoom extends React.Component {
       currentVideoItem: "local",
       remoteVolumeData: [],
       muteRemoteVolume: [],
-      allStream: [],
-      mailSid: null,
-      mainStream: [],
-      remoteStreams: [],
-      lineFlag: true,
-      isSafari: isSafari(),
-      playBtnShow: isIOS() && isSafari() ,
-      shareScreen: false,
+      muteRemoteVideo: [],
       safariShow: false,
     };
-
+    this.setVolume = this.setVolume.bind(this);
+    this.volumeChange = this.volumeChange.bind(this);
     this.videoChange = this.videoChange.bind(this);
   }
-
   componentDidMount() {
     if (getCookie("settingParam") == undefined) {
       this.props.history.push("/");
-      return
+      return;
     }
-    console.log(getCookie("settingParam"))
+    console.log(getCookie("settingParam"));
     let param = JSON.parse(getCookie("settingParam"));
+    console.log();
     this.props.store.settings.settingsData(param);
     this.props.store.settings.joinRoom({
       roomId: param.roomId,
     });
-    console.log("param", param);
+    if (param.userRole === "pull" && isIOS() && isWeChat()) {
+      this.setState({
+        safariShow: true,
+      });
+    }
+
     let locationState = this.props.location.state;
     if (!locationState) {
       this.props.history.push("/");
@@ -79,32 +75,20 @@ class ClassRoom extends React.Component {
       this.initURtc(locationState);
     }
   }
-
   initURtc(data) {
     this.setState({
       paramsData: data,
     });
     const storeData = this.props.store.settings;
     const storeClient = this.props.store.client;
-
     let roomId = data.roomId;
     let userId = this.props.store.settings.userId || data.userId;
     const AppId = storeData.AppId;
     const AppKey = storeData.AppKey;
-    const signalLink = storeData.signalLink;
     this.setState({
       roomId: roomId,
       userName: storeData.userName,
     });
-    console.log('sss', storeData)
-    if (process.env.REACT_APP_ENV !== "pre" && signalLink !== '') {
-      sdk.setServers({
-        // api: storeData.apiLink,   // api 为 URC 房间服务的访问地址
-        // log: storeData.logLink, // log 为 URTC 日志服务的访问地址
-        signal: signalLink, //storeData.signalLink // signal 为 URTC 信令服务的访问地址
-      })
-    }
-
     let token = sdk.generateToken(AppId, AppKey, roomId, userId);
     this.Client = new Client(AppId, token, {
       type: storeData.roomType,
@@ -112,274 +96,227 @@ class ClassRoom extends React.Component {
       codec: storeData.videoCodec,
     });
     storeClient.initClient(this.Client);
-    // this.Client.enableAudioVolumeIndicator(400);
     this.Client.joinRoom(roomId, userId, (e, s) => {
       Message.config({
         duration: 3000,
         top: 20,
       });
-      if(storeData.videoProlie == '1280*720(600k)'){
-        this.Client.setVideoProfile({
-            width:1280, 
-            height:720,
-            framerate:15,
-            bitrate:600});
-      }else{
-        this.Client.setVideoProfile({
-          profile: storeData.videoProlie,
-        });
-      }
-      
+      this.Client.setVideoProfile({
+        profile: storeData.videoProlie,
+      });
 
-      if (storeData.userRole !== "pull") {
-        this.publish(); 
-      }
-
-    });
-    
-    this.Client.on("stream-published", (stream) => {
-      const { allStream = [] } = this.state;
-      allStream.push(stream);
-      if (stream.mediaType === "camera") {
-        if (this.state.mainStream.length && this.state.mainStream[0].mediaType === "screen") {
-          this.setState(
-            {
-              localStream: stream,
-              localCameraSid: stream.sid,
-              mainType: "camera",
-            },
-            () => {
-              this.getLayoutStream(allStream);
-            }
-          );
-          return
+      this.Client.publish(
+        {
+          audio: true,
+          video: !storeData.onlyAudio,
+        },
+        (Result) => {
+          if (Result.audio === false && Result.video === false) {
+            Message.error("没有可用音视频设备");
+          } else {
+            this.Client.publish(
+              {
+                audio: Result.audio,
+                video: !storeData.onlyAudio, //Result.video,
+                cameraId: storeData.videoInput,
+              },
+              function () {
+                Message.message(<div>没有推流权限</div>, undefined, () =>
+                  console.log("onClose")
+                );
+              }
+            );
+          }
         }
-        this.setState(
-          {
-            mainSid: stream.sid,
-            localStream: stream,
-            localCameraSid: stream.sid,
-            mainType: "camera",
-          },
-          () => {
-            this.getLayoutStream(allStream);
-          }
-        );
-      }
-
-      if (stream.mediaType === "screen") {
-        let nextId = stream.sid;
-        this.setState(
-          {
-            mainSid: nextId,
-            shareScreen: true,
-          },
-          () => {
-            this.getLayoutStream(allStream);
-          }
-        );
+      );
+    });
+    this.Client.on("stream-published", (stream) => {
+      console.log(stream);
+      if (stream.mediaType === "camera") {
+        setInterval(() => {
+          let volumnvalue = this.Client.getAudioVolume(stream.sid);
+          volumnvalue = 14 - Math.ceil((volumnvalue / 100) * 8);
+          this.setState({
+            volumeData: volumnvalue,
+          });
+        }, 500);
+        this.setState({
+          localStream: stream,
+        });
+      } else {
+        this.setState({
+          screenStream: stream,
+        });
       }
     });
 
     this.Client.on("screenshare-stopped", (stream) => {
-      console.log("screenshare-stopped", stream);
-      this.unShareScreen(stream)
-    });
-
-    this.Client.on("stream-reconnected", (streams) => {
-      console.log("断网重连", streams);
-      const { previous, current } = streams;
-      const { allStream = [] } = this.state;
-      const idx = allStream.findIndex((item) => previous.sid === item.sid);
-      if (idx !== -1) {
-        allStream.splice(idx, 1);
-        allStream.push(current);
-        if (this.state.mainSid === previous.sid) {
-          this.setState({
-            mainSid: current.sid,
-          }, () => {
-            this.getLayoutStream(allStream)
-          })
-          return
-        } else {
-          this.setState({
-            allStream,
-          }, () => {
-            this.getLayoutStream(allStream)
-          });
-        }
-
-      }
-    });
-
-    this.Client.on("stream-subscribed", (stream) => {
-      console.log("stream-subscribed", stream);
-
-      const { allStream = [] } = this.state;
-      allStream.push(stream);
-
-      if (stream.mediaType === "screen") {
-        let nextId = stream.sid;
-        this.setState(
-          {
-            mainSid: nextId,
-          },
-          () => {
-            this.getLayoutStream(allStream);
-          }
-        );
-        return;
-      }
-      this.setState(
-        {
-          allStream: allStream,
-        },
-        () => {
-          this.getLayoutStream(allStream);
-        }
-      );
+      this.Client.unpublish(stream.sid, (e) => {
+        console.log("取消推送共享");
+        this.setState({
+          screenStream: null,
+        });
+      });
     });
 
     this.Client.on("stream-added", (stream) => {
+      console.log(stream);
       this.Client.subscribe(stream.sid, (e) => {
         console.log("subscribe failure ", e);
       });
     });
 
-    this.Client.on("stream-removed", (stream) => {
-      console.log("stream-removed ", stream);
-      const { allStream = [] } = this.state;
-      let arr = this.filterStream(allStream, stream.sid);
-
-      this.setState(
-        {
-          allStream: arr,
-        },
-        () => {
-          this.getLayoutStream(arr);
-        }
-      );
+    this.Client.on("stream-subscribed", (stream) => {
+      console.log(stream);
+      const { remoteStreams = [] } = this.state;
+      remoteStreams.push(stream);
+      this.setState({
+        remoteStreams,
+        // videoList: this.client.getRemoteStreams()
+      });
+      
     });
 
+    this.Client.on("stream-removed", (stream) => {
+      console.log("stream-removed ", stream);
+      const { remoteStreams = [] } = this.state;
+      const idx = remoteStreams.findIndex((item) => stream.sid === item.sid);
+      if (idx !== -1) {
+        remoteStreams.splice(idx, 1);
+      }
+      this.setState({ remoteStreams });
+    });
+    this.Client.enableAudioVolumeIndicator(500)
     this.Client.on("volume-indicator", (e) => {
-      // console.log('远端音量：', e)
       this.setState({
-        remoteVolumeData: e,
-        allStream,
-      });
+        remoteVolumeData: e
+      })
     });
 
     this.Client.on("mute-audio", (stream) => {
-      let { allStream } = this.state;
-      let newRemote = allStream.map((e) => {
-        if (e.sid == stream.sid) {
-          return stream;
-        } else {
-          return e;
+      console.log(23)
+      let muteRemote = this.state.muteRemoteVolume;
+      let flag = false;
+      muteRemote.map(e=>{
+        if(e.sid === stream.sid){
+          flag = true;
         }
-      });
-
-      this.setState(
-        {
-          allStream: newRemote,
-        },
-        () => {
-          this.getLayoutStream(newRemote, false);
-        }
-      );
-    });
-
-    this.Client.on("mute-video", (stream) => {
-      let { allStream } = this.state;
-      let newRemote = allStream.map((e) => {
-        if (e.sid == stream.sid) {
-          return stream;
-        } else {
-          return e;
-        }
-      });
-
-      this.setState(
-        {
-          allStream: newRemote,
-        },
-        () => {
-          this.getLayoutStream(newRemote, false);
-        }
-      );
+      })
+      if(!flag){
+        muteRemote.push(stream);
+        this.setState({
+          muteRemoteVolume: muteRemote
+        })
+      }
     });
 
     this.Client.on("unmute-video", (stream) => {
-      let { allStream } = this.state;
-      let newRemote = allStream.map((e) => {
-        if (e.sid == stream.sid) {
-          return stream;
-        } else {
-          return e;
+      // let muteVideoData = this.state.muteRemoteVideo;
+      // muteVideoData.map((e,v)=>{
+      //   if(e.sid === stream.sid){
+      //     muteVideoData.splice(v,1);
+      //     this.setState({
+      //       muteRemoteVolume: muteRemote
+      //     })
+      //   }
+      // })
+      let muteVideoData = this.state.muteRemoteVideo;
+      muteVideoData.map((e,v)=>{
+        if(e.sid === stream.sid){
+          muteVideoData.splice(v,1);
+          this.setState({
+            muteRemoteVideo: muteVideoData
+          })
         }
-      });
+      })
+    });
 
-      this.setState(
-        {
-          allStream: newRemote,
-        },
-        () => {
-          this.getLayoutStream(newRemote, false);
+    this.Client.on("mute-video", (stream) => {
+      let muteVideoData = this.state.muteRemoteVideo;
+      
+      let flag = false;
+      muteVideoData.map(e=>{
+        if(e.sid === stream.sid){
+          flag = true;
         }
-      );
+      })
+      if(!flag){
+        muteVideoData.push(stream);
+        this.setState({
+          muteRemoteVideo: muteVideoData
+        })
+      }
+      
     });
 
     this.Client.on("unmute-audio", (stream) => {
-      let { allStream } = this.state;
-      let newRemote = allStream.map((e) => {
-        if (e.sid == stream.sid) {
-          return stream;
-        } else {
-          return e;
+      let muteRemote = this.state.muteRemoteVolume;
+      muteRemote.map((e,v)=>{
+        if(e.sid === stream.sid){
+          muteRemote.splice(v,1);
+          this.setState({
+            muteRemoteVolume: muteRemote
+          })
         }
-      });
-
-      this.setState(
-        {
-          allStream: newRemote,
-        },
-        () => {
-          this.getLayoutStream(newRemote, false);
-        }
-      );
+      })
     });
   }
 
-  unShareScreen = (stream) => {
+  volumeChange() {
+    const { volumeMute, localStream, remoteStreams } = this.state;
+    console.log(localStream.sid);
+    console.log(remoteStreams);
     this.setState({
-      shareScreen: false
-    })
+      volumeMute: !volumeMute,
+    });
+    if (volumeMute) {
+      if (localStream.sid) {
+        this.Client.setAudioVolume({
+          streamId: localStream.sid,
+          volume: 0,
+        });
+      }
+      if (remoteStreams.length > 0) {
+        remoteStreams.forEach((e) => {
+          this.Client.setAudioVolume({
+            streamId: e.sid,
+            volume: 0,
+          });
+        });
+      }
+    } else {
+      if (localStream.sid) {
+        this.Client.setAudioVolume({
+          streamId: localStream.sid,
+          volume: 100,
+        });
+      }
+      if (remoteStreams.length > 0) {
+        remoteStreams.forEach((e) => {
+          this.Client.setAudioVolume({
+            streamId: e.sid,
+            volume: 100,
+          });
+        });
+      }
+    }
 
-    this.Client.unpublish(stream.sid, (e) => {
-      const { allStream = [] } = this.state;
-      let arr = this.filterStream(allStream, stream.sid);
-      if (stream.sid == this.state.mailSid) {
-        let targetId = localStream ? localStream.sid : (arr.length ? arr[0].sid : null)
-        this.setState(
-          {
-            allStream: arr,
-            mainSid: targetId
-          },
-          () => {
-            this.getLayoutStream(arr);
-          }
-        )
-        return
-      } else {
-        this.setState(
-          {
-            allStream: arr,
-          },
-          () => {
-            this.getLayoutStream(arr);
-          }
-        );
-        return
+    // if (setVolumeDisplay) {volumeMute
+    //   this.setState({
+    //     setVolumeDisplay: false,
+    //   });
+    // } else {
+    //   this.setState({
+    //     setVolumeDisplay: true,
+    //   });
+    // }
+  }
+  setVolume(e) {
+    let volume = e.target.value;
+    this.Client.setAudioVolume({ volume: parseInt(volume) }, (Err) => {
+      if (Err) {
+        alert(`设置声音失败 ${Err}`);
+        return;
       }
     });
   }
@@ -389,185 +326,24 @@ class ClassRoom extends React.Component {
       relayShow: flag,
     });
   };
-
-  publish = () => {
-    const storeData = this.props.store.settings;
-    sdk.deviceDetection({
-      audio:true,
-      video:true
-    },(Result)=>{
-      if(Result.audio === false && Result.video === false ){
-        Message.error("没有可用音视频设备");
-      }else{
-        this.Client.publish(
-          {
-            audio: Result.audio,
-            video: Result.video,
-            cameraId: storeData.videoInput,
-          },
-          function () {
-            Message.message(<div>没有推流权限</div>, undefined, () =>
-              console.log("onClose")
-            );
-          }
-        );
-      }
-    })
-    
-  }
-
-  //下麦操作
-  unPublish = () => {
-    let { lineFlag, playBtnShow } = this.state;
-    if (lineFlag) {
-      this.Client.unpublish((stream) => {
-        Message.success("下麦成功");
-        let { allStream, localStream } = this.state;
-        const idx = allStream.findIndex((item) => localStream.sid === item.sid)
-        if (idx !== -1) {
-          allStream.splice(idx, 1);
-          console.log('>>>>下', allStream)
-          this.setState({
-            localStream: null,
-            allStream: allStream,
-            lineFlag: false,
-          }, () => {
-            this.props.store.common.setAudioMuteStats(false);
-            this.props.store.common.setVideoMuteStats(false);
-            this.getLayoutStream(allStream);
-          });
-        }
-
-        //ios自带浏览重新播放
-        if(playBtnShow){  
-          allStream
-        }
-
-        //ios safari
-        if(isIOS() && isSafari()){
-          this.setState({
-            safariShow:true
-          })
-        }
-      });
-    } else {
-      this.publish()
-      this.setState({
-        lineFlag: true,
-      });
-    }
-  };
-
   videoChange(e) {
-    this.setState(
-      {
-        mainSid: e.sid,
-      },
-      () => {
-        this.stopStreams();
-        this.getLayoutStream(this.state.allStream);
-      }
-    );
+    this.setState({
+      currentVideoItem: e,
+    });
   }
-
-  ref = (player) => {
-    this.teachPlayer = player;
-  };
-
-  fullscreen = () => {
-    openFullscreen(findDOMNode(this.teachPlayer));
-  };
-
-
-  // arr 为最新全部流数组, refreshFlag 为是否stop or play全部视频
-  getLayoutStream = (arr = [], refreshFlag = true) => {
-    console.log('res', arr)
-    if (refreshFlag) {
-      this.stopStreams();
-    }
-    const { mainSid } = this.state;
-    let mainArr = [];
-    let remoteArr = [];
-
-    arr.map((e) => {
-      if (e.sid === mainSid) {
-        mainArr.push(e);
-      } else {
-        remoteArr.push(e);
-      }
-    });
-
-    //主屏幕没流
-    if (mainArr.length == 0 && remoteArr.length >= 1) {
-      mainArr.push(remoteArr[0]);
-      remoteArr.splice(0, 1)
-    }
-    this.setState(
-      {
-        mainStream: mainArr,
-        remoteStreams: remoteArr,
-      },
-      () => {
-        if (refreshFlag) {
-          this.playStreams();
-        }
-      }
-    );
-
-  };
-
-  stopStreams = () => {
-    let { allStream = [] } = this.state;
-    let arr = allStream.map((stream) => {
-      return new Promise((resolve, reject) => {
-        this.Client.stop(stream.sid, (err) => {
-          if (!err) {
-            resolve();
-          } else {
-            reject(err);
-          }
-        });
-      });
-    });
-    return Promise.all(arr);
-  };
-
-  playStreams = () => {
-    let { allStream = [] } = this.state;
-    for (let index = 0; index < allStream.length; index++) {
-      const id = allStream[index].sid;
-      // if (allStream[index].mediaType === "screen") {
-        this.Client.play(
-          { streamId: id, container: id, fit: "contain" },
-          (err) => {
-            if (!err) {
-              this.resume(id)
-              reject(console.log("播放失败", err, prevId));
-            }
-          }
-        );
-      // } 
-    }
-  };
-
-  filterStream = (arr, sid) => {
-    const idx = arr.findIndex((item) => sid === item.sid);
-    if (idx !== -1) {
-      arr.splice(idx, 1);
-      return arr;
-    }
-  };
-
   render() {
     const {
-      localStream = { sid: 0 },
-      paramsData,
-      mainStream,
+      localStream,
       remoteStreams,
-      localCameraSid,
-      lineFlag,
-      shareScreen,
-      safariShow,
+      screenStream,
+      // setVolumeDisplay,
+      paramsData,
+      volumeData,
+      // remoteVolumeData,
+      muteRemoteVolume,
+      muteRemoteVideo,
+      currentVideoItem,
+      userName,
     } = this.state;
     return (
       <div className="room_main">
@@ -575,80 +351,125 @@ class ClassRoom extends React.Component {
           client={this.Client}
           sid={localStream && localStream.sid}
         />
-
         <div className="video-wrapper">
-          <div className="video-cur">
-            {mainStream.map((stream, index) => {
-              return (
-                <div
-                  className="video-current"
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                  }}
-                  ref={this.ref}
-                  key={index}
-                >
-                  {isPC() ? (
-                    <div
-                      style={{
-                        cursor: "pointer",
-                        position: "absolute",
-                        top: "15px",
-                        right: "25px",
-                        color: 'write',
-                        zIndex: '100'
-                      }}
-                      onClick={this.fullscreen}
-                    >
-                      <b>
-                        <Icon type="sidebar_web" />{" "}
-                      </b>
-                    </div>
-                  ) : null}
-
-                  {stream.sid == localCameraSid ? (
-                    <ClassVideoWrapper
-
-                      stream={Object.assign({
-                        ...stream,
-                        muteVideo: this.props.store.common.localMuteVideo,
-                        muteAudio: this.props.store.common.localMuteAudio,
-                      })}
-                    />
-                  ) : (
-                      <ClassVideoWrapper stream={stream} />
-                    )}
-                </div>
-              );
-            })}
-          </div>
+          <div className="video-cur"></div>
           <ul className="video-list">
+            <li className={`${
+                  "local" === currentVideoItem ? "li-current" : null
+                }`}>
+              <div
+                className={`video-item ${
+                  "local" === currentVideoItem ? "video-current" : null
+                }`}
+              >
+                <span
+                  className="icon__maximize video-change"
+                  title="切换到大屏"
+                  onClick={() => this.videoChange("local")}
+                ></span>
+                    <div
+                      className="bg"
+                      style={{
+                        display: localStream !== null && (localStream.muteVideo || !localStream.video) ? "block" : "none",
+                      }}
+                    >
+                      {/* <img src={bgImg} alt="" /> */}
+                    </div>
+                <ReactPlayer
+                  className="local-video"
+                  url={localStream && localStream.mediaStream}
+                  muted={true}
+                  width="100%"
+                  height="100%"
+                  playing
+                  playsinline
+                />
+                <div className="video-info">
+                  <span className="user-name">{userName}</span>
+                  <span className="volume-wrapper">
+                    <span className="icon__urtc-mkf"></span>
+                    <span
+                      className="volume-data"
+                      style={{ top: volumeData+'px' }}
+                    ></span>
+                  </span>
+                </div>
+              </div>
+            </li>
             {remoteStreams.map((stream, key) => (
-              <li key={key}>
-                <div className={`video-item`}>
-                  {/* {stream.mediaType === "screen" ? null : ( */}
+              <li key={stream.sid}>
+                <div
+                  className={`video-item ${
+                    "remote" + key === currentVideoItem ? "video-current" : null
+                  }`}
+                >
                   <span
                     className="icon__maximize video-change"
                     title="切换到大屏"
-                    onClick={() => this.videoChange(stream)}
+                    onClick={() => this.videoChange("remote" + key)}
                   ></span>
-                  {/* )} */}
-
-                  {stream.sid == localCameraSid ? (
-                    <ClassVideoWrapper
-                      stream={Object.assign({
-                        ...stream,
-                        muteVideo: this.props.store.common.localMuteVideo,
-                        muteAudio: this.props.store.common.localMuteAudio,
-                      })}
-                    />
-                  ) : (
-                      <ClassVideoWrapper stream={stream} />
-                    )}
+                  <div
+                      className="bg"
+                      style={{
+                        display: localStream !== null && (localStream.muteVideo || !localStream.video) ? "block" : "none",
+                      }}
+                    >
+                      {/* <img src={bgImg} alt="" /> */}
+                    </div>
+                  <ReactPlayer
+                    className="remote-video"
+                    url={stream && stream.mediaStream}
+                    width="100%"
+                    height="100%"
+                    playing
+                    playsinline
+                  />
+                  <div className="video-info">
+                    <span className="user-name">{stream.uid}</span>
+                    <span className={`volume-wrapper ${muteRemoteVolume.map(e=>{if(e.sid===stream.sid){
+                      return 'mute-audio'
+                    }})}`}>
+                      <span className="icon__urtc-mkf"></span>
+                      {/* {remoteVolumeData.map((data,i)=>(
+                        <span
+                          className="volume-data"
+                          key={i}
+                          style={{ top: data.sid === stream.sid? 14 - Math.ceil((data.volume / 100) * 8)+'px':'14px' }}
+                        ></span>
+                      ))} */}
+                    </span>
+                    <span className={`volume-wrapper ${muteRemoteVideo.map(e=>{if(e.sid===stream.sid){
+                      return 'mute-audio'
+                    }})}`}>
+                      <span className="icon__urtc-sxj"></span>
+                    </span>
+                  </div>
                 </div>
               </li>
             ))}
+            {screenStream && screenStream.mediaStream ? (
+              <li>
+                <div
+                  className={`video-item ${
+                    "screen" === currentVideoItem ? "video-current" : null
+                  }`}
+                >
+                  <span
+                    className="icon__maximize video-change"
+                    title="切换到大屏"
+                    onClick={() => this.videoChange("screen")}
+                  ></span>
+                  <ReactPlayer
+                    className="local-video"
+                    url={screenStream.mediaStream}
+                    width="100%"
+                    height="100%"
+                    playing
+                    playsinline
+                  />
+                </div>
+              </li>
+            ) : null}
           </ul>
         </div>
 
@@ -656,21 +477,19 @@ class ClassRoom extends React.Component {
           client={this.Client}
           paramsData={paramsData}
           sid={localStream && localStream.sid}
-          unPublish={this.unPublish}
-          lineFlag={lineFlag}
-          shareScreen={shareScreen}
-          unShareScreen={this.unShareScreen}
-          playStreams= {this.playStreams}
         />
+        {/* <SafariHelpModal
+          show={safariShow}
+          close={() => {
+            this.setState({ safariShow: false });
+          }}
+          play={this.playStreams}
+        /> */}
 
-        <SafariHelpModal
-            show={safariShow}
-            close={() => {this.setState({safariShow:false})}}
-            play={this.playStreams}
-        />
       </div>
     );
   }
 }
 
 export default ClassRoom;
+

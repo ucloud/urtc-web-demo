@@ -77,6 +77,7 @@ class ClassFooter extends React.Component {
           let paramsStr = objectToParamString({
             roomId  : roomId,
             roomType: settingStore.roomType,
+            onlyAudio: settingStore.onlyAudio
           });
           let share = `${origin}/share?${paramsStr}`;
           this.setState({
@@ -290,6 +291,7 @@ class ClassFooter extends React.Component {
     this.props.unShareScreen(targetStream)
   }
 
+  
   render() {
     const {
       videoRecord,

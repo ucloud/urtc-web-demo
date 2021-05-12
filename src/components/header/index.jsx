@@ -153,7 +153,7 @@ class ClassHeader extends React.Component {
             title={`网络状态：${uplink}`}
             type="bar-graph"
           />
-          <span className="text">{`${rtt}ms`}</span>
+          {rtt > 0?(<span className="text">{`${rtt}ms`}</span>):null}
         </Network>
       </Header>
     );

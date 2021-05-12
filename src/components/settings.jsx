@@ -3,8 +3,9 @@ import { observer, inject } from "mobx-react";
 import sdk from "urtc-sdk";
 import "./settings.css";
 import { Modal, Input, Form, Select } from "@ucloud-fe/react-components";
-import config from "../config";
+import config from "../config/index";
 import { isPC } from "../util/index";
+// import {getCookie} from "../util/cookie"
 const { isSupportWebRTC } = sdk;
 const { Item } = Form;
 const { Option } = Select;
@@ -23,58 +24,54 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      visible: false,
+      loading : false,
+      visible : false,
       initData: {
-        roomType: "rtc", //房间类型
-        userRole: "push-and-pull", //用户角色
-        userName: "", //用户名
-        userId: "", //id
-        videoInput: "", //摄像头
-        audioInput: "default", //麦克风
-        audioOutput: "default", //扬声器
-        videoProlie: "640*360", //视频分辨率
+        roomType      : "rtc",             //房间类型
+        userRole      : "push-and-pull",   //用户角色
+        userName      : "",                //用户名
+        userId        : "",                //id
+        videoInput    : "",                //摄像头
+        audioInput    : "default",         //麦克风
+        audioOutput   : "default",         //扬声器
+        videoProlie   : "640*360",         //视频分辨率
         desktopProfile: "1280*720",
-        videoCodec: "vp8", //视频编码
-        AppKey: config.AppKey, //AppKey
-        AppId: config.AppId, //AppId
-        apiLink: '',
-        logLink: '',
-        signalLink: ''
+        videoCodec    : "vp8",             //视频编码
+        AppKey        : config.AppKey,     //AppKey
+        AppId         : config.AppId,      //AppId
+        apiLink       : '',
+        logLink       : '',
+        signalLink    : "",
       },
-      videoInputList: [],
-      audioInputList: [],
+      videoInputList : [],
+      audioInputList : [],
       audioOutputList: [],
       videoProlieList: [],
-      videoCodecList: [],
-      AppKey: config.AppKey, //AppKey
-      AppId: config.AppId, //AppId
-      isPhone: !isPC(),
+      videoCodecList : [],
+      AppKey         : config.AppKey,   //AppKey
+      AppId          : config.AppId,    //AppId
+      isPhone        : !isPC(),
     };
-    this.setClose = this.setClose.bind(this);
-    this.roomTypeChange = this.roomTypeChange.bind(this);
-    this.userRoleChange = this.userRoleChange.bind(this);
-    this.setOk = this.setOk.bind(this);
-    this.userNameChange = this.userNameChange.bind(this);
-    this.videoInputChange = this.videoInputChange.bind(this);
-    this.audioInputChange = this.audioInputChange.bind(this);
+    this.setClose          = this.setClose.bind(this);
+    this.roomTypeChange    = this.roomTypeChange.bind(this);
+    this.userRoleChange    = this.userRoleChange.bind(this);
+    this.setOk             = this.setOk.bind(this);
+    this.userNameChange    = this.userNameChange.bind(this);
+    this.videoInputChange  = this.videoInputChange.bind(this);
+    this.audioInputChange  = this.audioInputChange.bind(this);
     this.audioOutputChange = this.audioOutputChange.bind(this);
     this.videoProlieChange = this.videoProlieChange.bind(this);
-    this.videoCodecChange = this.videoCodecChange.bind(this);
-    this.AppKeyChange = this.AppKeyChange.bind(this);
-    this.AppIdChange = this.AppIdChange.bind(this);
-    this.apiLinkChange = this.apiLinkChange.bind(this);
-    this.logLinkChange = this.logLinkChange.bind(this);
-    this.signalLinkChange = this.signalLinkChange.bind(this);
+    this.videoCodecChange  = this.videoCodecChange.bind(this);
+    this.AppKeyChange      = this.AppKeyChange.bind(this);
+    this.AppIdChange       = this.AppIdChange.bind(this);
+    this.apiLinkChange     = this.apiLinkChange.bind(this);
+    this.logLinkChange     = this.logLinkChange.bind(this);
+    this.signalLinkChange  = this.signalLinkChange.bind(this);
   }
   componentDidMount() {
     this.getDeviceData();
     this.getSupportProfile();
     this.getSupportedCodec();
-    const initData = this.state.initData;
-    this.setState({
-      signalLink: initData.signalLink
-    });
   }
   componentWillReceiveProps(nextProps) {
     let storeSettings = this.props.store.settings;
@@ -115,7 +112,6 @@ class Settings extends React.Component {
     sdk.getDevices((e) => {
       e.forEach(function (data) {
         if (data.kind === "videoinput") {
-          console.log("device info ", data);
           videoInput.push(data);
         } else if (data.kind === "audioinput") {
           audioInput.push(data);
@@ -125,7 +121,6 @@ class Settings extends React.Component {
       });
 
       let storeSettings = this.props.store.settings;
-      console.log("videoInput[0].deviceId", videoInput[0].deviceId);
       storeSettings.setParamKey("videoInput", videoInput[0].deviceId);
 
       const initData = _this.state.initData;
@@ -282,9 +277,7 @@ class Settings extends React.Component {
   }
   signalLinkChange(e) {
     const initData = this.state.initData;
-    let storeSettings = this.props.store.settings;
-    storeSettings.setParamKey("signalLink", e.target.value);
-    console.log(e.target.value)
+    // let storeSettings = this.props.store.settings;
     this.setState({
       signalLink: e.target.value,
       initData: { ...initData, signalLink: e.target.value },
@@ -306,7 +299,6 @@ class Settings extends React.Component {
     // console.log(this.props.store.settings.roomType)
     // const { settings,Settings } = this.props.store;
     let { settings } = this.props.store;
-    console.log("settings.videoInput", settings.videoInput);
     //输出视频输入数据
     return (
       <Modal
