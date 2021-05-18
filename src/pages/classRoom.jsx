@@ -45,10 +45,12 @@ class ClassRoom extends React.Component {
       muteRemoteVolume: [],
       muteRemoteVideo: [],
       safariShow: false,
+      lineFlag: true,
     };
     this.setVolume = this.setVolume.bind(this);
     this.volumeChange = this.volumeChange.bind(this);
     this.videoChange = this.videoChange.bind(this);
+    this.unPublish = this.unPublish.bind(this);
   }
   componentDidMount() {
     if (getCookie("settingParam") == undefined) {
@@ -181,6 +183,7 @@ class ClassRoom extends React.Component {
       console.log("stream-removed ", stream);
       const { remoteStreams = [] } = this.state;
       const idx = remoteStreams.findIndex((item) => stream.sid === item.sid);
+
       if (idx !== -1) {
         remoteStreams.splice(idx, 1);
       }
@@ -261,7 +264,11 @@ class ClassRoom extends React.Component {
       })
     });
   }
-
+  unPublish(){
+    this.setState({
+      localStream:null
+    })
+  }
   volumeChange() {
     const { volumeMute, localStream, remoteStreams } = this.state;
     console.log(localStream.sid);
@@ -326,6 +333,65 @@ class ClassRoom extends React.Component {
       relayShow: flag,
     });
   };
+
+  // publish = () => {
+  //   const storeData = this.props.store.settings;
+  //   sdk.deviceDetection({
+  //     audio:true,
+  //     video:true
+  //   },(Result)=>{
+  //     if(Result.audio === false && Result.video === false ){
+  //       Message.error("没有可用音视频设备");
+  //     }else{
+  //       this.Client.publish(
+  //         {
+  //           audio: Result.audio,
+  //           video: Result.video,
+  //           cameraId: storeData.videoInput,
+  //         },
+  //         function () {
+  //           Message.message(<div>没有推流权限</div>, undefined, () =>
+  //             console.log("onClose")
+  //           );
+  //         }
+  //       );
+  //     }
+  //   })
+    
+  // }
+
+  // //下麦操作
+  // unPublish = () => {
+  //   let { lineFlag, playBtnShow } = this.state;
+  //   if (lineFlag) {
+  //     this.Client.unpublish((stream) => {
+  //       Message.success("下麦成功");
+  //       let { localStream } = this.state;
+  //       this.setState({
+  //         localStream: null,
+  //         lineFlag: false,
+  //       }, () => {
+  //         this.props.store.common.setAudioMuteStats(false);
+  //         this.props.store.common.setVideoMuteStats(false);
+  //       });
+
+  //       //ios自带浏览重新播放
+
+  //       //ios safari
+  //       if(isIOS() && isSafari()){
+  //         this.setState({
+  //           safariShow:true
+  //         })
+  //       }
+  //     });
+  //   } else {
+  //     this.publish()
+  //     this.setState({
+  //       lineFlag: true,
+  //     });
+  //   }
+  // };
+
   videoChange(e) {
     this.setState({
       currentVideoItem: e,
@@ -476,6 +542,7 @@ class ClassRoom extends React.Component {
         <ClassFooter
           client={this.Client}
           paramsData={paramsData}
+          unPublish={this.unPublish}
           sid={localStream && localStream.sid}
         />
         {/* <SafariHelpModal

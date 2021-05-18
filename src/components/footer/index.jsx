@@ -146,15 +146,18 @@ class ClassFooter extends React.Component {
   unPublish = () => {
     let { lineFlag } = this.state;
     console.log(this.props.sid);
+    console.log(lineFlag)
+    const streamSid = this.props.sid;
     if (lineFlag) {
-      this.Client.unpublish((stream) => {
+      this.Client.unpublish(streamSid,() => {
         Message.success("下麦成功");
-        this.props.destoryStream && this.props.destoryStream();
+        // this.props.destoryStream && this.props.destoryStream();
         this.setState({
           lineFlag: false,
           videoMute: false,
           audioMute: false,
         });
+        this.props.unPublish();
         this.props.store.common.setAudioMuteStats(false);
         this.props.store.common.setVideoMuteStats(false);
       });
@@ -307,7 +310,7 @@ class ClassFooter extends React.Component {
       recordShow,
       isSafari,
     } = this.state;
-    const { lineFlag, shareScreen } = this.props;
+    const { lineFlag, shareScreen } = this.state;
 
     let videoMute = this.props.store.common.localMuteVideo;
     let audioMute = this.props.store.common.localMuteAudio;
@@ -384,7 +387,7 @@ class ClassFooter extends React.Component {
                   {userRole === "pull" ? null : (
                     <div
                       className="btn_wrapper active-publish"
-                      onClick={this.props.unPublish}
+                      onClick={this.unPublish}
                     >
                       <Button
                         styleType="primary"
