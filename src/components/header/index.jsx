@@ -105,6 +105,16 @@ class ClassHeader extends React.Component {
   }
 
   getNetwork = () => {
+    let localStream = this.Client.getLocalStreams()
+    let remoteStream = this.Client.getRemoteStreams()
+    let type = "local"
+    let sid = null
+    if(localStream.length !== 0){
+        sid = localStream[0].sid
+    }else if(localStream.length === 0 && remoteStream.length !== 0){
+        type = "remote"
+        sid = remoteStream[0].sid
+    }
     this.Client.on("network-quality", (Stats) => {
       if (Stats.uplink) {
         this.setState({
@@ -119,15 +129,18 @@ class ClassHeader extends React.Component {
       }
     });
     this.timer = setInterval(() => {
-      this.Client.getNetworkStats(
+      console.log(999,localStream)
+      console.log(sid)
+      this.Client.getNetworkStats(sid,
         (stats) => {
+          console.log(1111,stats)
           this.setState({
             rtt: stats.rtt,
           });
         },
         (error) => {
           clearInterval(this.timer);
-          console.log(error);
+          console.log(2222,error);
         }
       );
     }, 200);

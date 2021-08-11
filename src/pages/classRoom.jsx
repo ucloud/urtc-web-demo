@@ -5,11 +5,11 @@ import { observer, inject } from "mobx-react";
 import ReactPlayer from "react-player";
 import "./classRoom.css";
 import "../common/ucloudicons/dist/css/icon.min.css";
-import sdk, { Client } from "urtc-sdk";
+import sdk, { Client,Logger } from "urtc-sdk";
 import { Message } from "@ucloud-fe/react-components";
 // import { copy } from "../util/index";
 import ClassFooter from "../components/footer/index";
-import ClassHeader from "../components/header/index";
+import ClassHeader from "../components/header/new";
 
 import SafariHelpModal from "../container/iosSafariModal/index";
 import { getCookie } from "../util/cookie";
@@ -51,13 +51,13 @@ class ClassRoom extends React.Component {
     this.volumeChange = this.volumeChange.bind(this);
     this.videoChange = this.videoChange.bind(this);
     this.unPublish = this.unPublish.bind(this);
+    this.videoDom = this.videoDom.bind(this);
   }
   componentDidMount() {
     if (getCookie("settingParam") == undefined) {
       this.props.history.push("/");
       return;
     }
-    console.log(getCookie("settingParam"));
     let param = JSON.parse(getCookie("settingParam"));
     console.log();
     this.props.store.settings.settingsData(param);
@@ -81,16 +81,34 @@ class ClassRoom extends React.Component {
     this.setState({
       paramsData: data,
     });
+    console.log(this.props)
     const storeData = this.props.store.settings;
     const storeClient = this.props.store.client;
     let roomId = data.roomId;
     let userId = this.props.store.settings.userId || data.userId;
     const AppId = storeData.AppId;
     const AppKey = storeData.AppKey;
+    const signalLink = storeData.signalLink;
     this.setState({
       roomId: roomId,
       userName: storeData.userName,
     });
+    console.log(sdk.version)
+    if (process.env.REACT_APP_ENV !== "pre" && signalLink !== "") {
+      sdk.setServers({
+        // api: storeData.apiLink,   // api 为 URC 房间服务的访问地址
+        // log: storeData.logLink, // log 为 URTC 日志服务的访问地址
+        signal: signalLink, //storeData.signalLink // signal 为 URTC 信令服务的访问地址
+      });
+    }
+
+    if (process.env.REACT_APP_ENV === "pre" && signalLink === "") {
+      sdk.setServers({
+        api: "https://pre.urtc.com.cn",
+        log: "https://logpre.urtc.com.cn",
+      });    
+    }
+
     let token = sdk.generateToken(AppId, AppKey, roomId, userId);
     this.Client = new Client(AppId, token, {
       type: storeData.roomType,
@@ -106,11 +124,12 @@ class ClassRoom extends React.Component {
       this.Client.setVideoProfile({
         profile: storeData.videoProlie,
       });
-
       this.Client.publish(
         {
           audio: true,
           video: !storeData.onlyAudio,
+          // screen: true
+          cameraId: storeData.videoInput,
         },
         (Result) => {
           if (Result.audio === false && Result.video === false) {
@@ -144,11 +163,37 @@ class ClassRoom extends React.Component {
         }, 500);
         this.setState({
           localStream: stream,
+          currentVideoItem: 'local'
         });
+        const localVideo = document.getElementById('localVideo');
+        this.Client.play(
+          { streamId: stream.sid, container: localVideo, fit: "contain" },
+          (err) => {
+            if (!err) {
+              this.Client.resume(stream.sid,(err)=>{
+                console.log("恢复播放失败", err)
+              })
+              console.log("播放失败", err)
+            }
+          }
+        );
+  
       } else {
         this.setState({
           screenStream: stream,
         });
+        const screenVideo = document.getElementById('screenVideo');
+        this.Client.play(
+          { streamId: stream.sid, container: screenVideo, fit: "contain" },
+          (err) => {
+            if (!err) {
+              this.Client.resume(stream.sid,(err)=>{
+                console.log("恢复播放失败", err)
+              })
+              console.log("播放失败", err)
+            }
+          }
+        );
       }
     });
 
@@ -169,12 +214,30 @@ class ClassRoom extends React.Component {
     });
 
     this.Client.on("stream-subscribed", (stream) => {
-      console.log(stream);
-      const { remoteStreams = [] } = this.state;
+      const { remoteStreams = [],localStream } = this.state;
+      console.log(localStream)
+      if(localStream == null){
+        this.setState({
+          currentVideoItem: 'remote0'
+        })
+      }
       remoteStreams.push(stream);
       this.setState({
         remoteStreams,
         // videoList: this.client.getRemoteStreams()
+      },()=>{
+        const remoteVideo = document.getElementById(stream.sid);
+        this.Client.play(
+          { streamId: stream.sid, container: remoteVideo, fit: "contain" },
+          (err) => {
+            if (!err) {
+              this.Client.resume(stream.sid,(err)=>{
+                console.log("恢复播放失败", err)
+              })
+              console.log("播放失败", err)
+            }
+          }
+        );
       });
       
     });
@@ -197,7 +260,6 @@ class ClassRoom extends React.Component {
     });
 
     this.Client.on("mute-audio", (stream) => {
-      console.log(23)
       let muteRemote = this.state.muteRemoteVolume;
       let flag = false;
       muteRemote.map(e=>{
@@ -393,9 +455,25 @@ class ClassRoom extends React.Component {
   // };
 
   videoChange(e) {
+    console.log(e)
     this.setState({
       currentVideoItem: e,
     });
+  }
+  videoDom(stream){
+    console.log(stream)
+    const localVideo = document.getElementById(stream.sid);
+    this.Client.play(
+      { streamId: stream.sid, container: localVideo, fit: "contain" },
+      (err) => {
+        if (!err) {
+          this.Client.resume(stream.sid,(err)=>{
+            console.log("恢复播放失败", err)
+          })
+          console.log("播放失败", err)
+        }
+      }
+    );
   }
   render() {
     const {
@@ -441,7 +519,7 @@ class ClassRoom extends React.Component {
                     >
                       {/* <img src={bgImg} alt="" /> */}
                     </div>
-                <ReactPlayer
+                {/* <ReactPlayer
                   className="local-video"
                   url={localStream && localStream.mediaStream}
                   muted={true}
@@ -449,7 +527,8 @@ class ClassRoom extends React.Component {
                   height="100%"
                   playing
                   playsinline
-                />
+                /> */}
+                <div className="local-video" id="localVideo"></div>
                 <div className="video-info">
                   <span className="user-name">{userName}</span>
                   <span className="volume-wrapper">
@@ -482,14 +561,15 @@ class ClassRoom extends React.Component {
                     >
                       {/* <img src={bgImg} alt="" /> */}
                     </div>
-                  <ReactPlayer
+                    <div id={stream.sid} className="remote-video"></div>
+                  {/* <ReactPlayer
                     className="remote-video"
                     url={stream && stream.mediaStream}
                     width="100%"
                     height="100%"
                     playing
                     playsinline
-                  />
+                  /> */}
                   <div className="video-info">
                     <span className="user-name">{stream.uid}</span>
                     <span className={`volume-wrapper ${muteRemoteVolume.map(e=>{if(e.sid===stream.sid){
@@ -525,20 +605,20 @@ class ClassRoom extends React.Component {
                     title="切换到大屏"
                     onClick={() => this.videoChange("screen")}
                   ></span>
-                  <ReactPlayer
+                  {/* <ReactPlayer
                     className="local-video"
                     url={screenStream.mediaStream}
                     width="100%"
                     height="100%"
                     playing
                     playsinline
-                  />
+                  /> */}
+                  <div className="local-video" id="screenVideo"></div>
                 </div>
               </li>
             ) : null}
           </ul>
         </div>
-
         <ClassFooter
           client={this.Client}
           paramsData={paramsData}
