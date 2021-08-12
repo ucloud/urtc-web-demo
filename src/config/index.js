@@ -1,5 +1,5 @@
 const config = {
   AppId: "xxxx",
-  AppKey: "xxxxxxx",
+  AppKey: "xxxxxxxxxxxxxxxxxxxx",
 };
 export default config;
